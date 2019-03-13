@@ -2,41 +2,28 @@ package NAPI;
 
 import com.graphhopper.directions.api.client.ApiException;
 import com.graphhopper.directions.api.client.api.GeocodingApi;
-import com.graphhopper.directions.api.client.api.RoutingApi;
 import com.graphhopper.directions.api.client.model.GeocodingResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GeoCoding {
 
 
-    public static void main(String[] args) {
 
-        //The Geocoding API
+    public List<String> convertAddressToCoordinates(String q, String q2){
+
         GeocodingApi apiInstance = new GeocodingApi();
+
         String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54"; // String | Get your key at graphhopper.com
-        //String q = "Muenster, Stadtlohnweg 33"; // String | If you do forward geocoding, then this would be a textual description of the address you are looking for
-        String q = "Institute for Geoinformatics Muenster";
-        String q2 = "Muesnter houptbahnhof";
+
         String locale = "en"; // String | Display the search results for the specified locale. Currently French (fr), English (en), German (de) and Italian (it) are supported. If the locale wasn't found the default (en) is used.
         Integer limit = 1; // Integer | Specify the maximum number of returned results
         Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
         String point = "51.9692,7.5958"; // String | The location bias in the format 'latitude,longitude' e.g. point=45.93272,11.58803
         String provider = "default"; // String | Can be either, default, nominatim, opencagedata
 
-
-        //The Routing API
-        RoutingApi routing = new RoutingApi();
-
-
-        Boolean optimize = false;
-        Boolean instructions = false;
-        String vehicle = "foot";
-        Boolean elevation = false;
-        Boolean points_encoded = true;
-        Boolean calc_points = true;
-        Boolean debug = false;
-        String type = "json";
-
-
+        List<String> points = new ArrayList();
 
         try {
             GeocodingResponse resultStartingPoint = apiInstance.geocodeGet(key, q, locale, limit, reverse, point, provider);
@@ -52,13 +39,22 @@ public class GeoCoding {
 
             String start = Double.toString(latStart) + "," + Double.toString(lngStart);
             String destination = Double.toString(latDest) + "," + Double.toString(lngDest);
-            System.out.println(start);
-            System.out.println(destination);
+
+            points.add(start);
+            points.add(destination);
+
+
 
         } catch (ApiException e) {
             System.err.println("Exception when calling GeocodingApi#geocodeGet");
             e.printStackTrace();
         }
 
+        return points;
     }
+
+
+
+
+
 }
