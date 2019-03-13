@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class main {
+public class Runner {
     public static void main(String[] args)
+    {
+        new Runner().routeInstructions();
+    }
+
+    public void routeInstructions()
     {
         RequestHandler rh = new RequestHandler();
         List<String> adresses = new ArrayList<String>();
@@ -22,7 +27,5 @@ public class main {
         List<String> instructions = rh.calculateRoute(adresses, vehicle);
         for(int i = 0; i<instructions.size();i++)
             System.out.println(instructions.get(i));
-
-
     }
 }
