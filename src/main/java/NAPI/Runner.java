@@ -4,13 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This is the runner class for our NavigationApi
+ */
 public class Runner {
     public static void main(String[] args)
     {
-        new Runner().routeInstructions();
+        new Runner().routeInstructionsCli();
     }
 
-    public void routeInstructions()
+    /**
+     * This method gives the user a route for the start and destination of his travel with a vehicle of his choosing.
+     * The interaction between the user and the Software happens through the CLI.
+     */
+    public void routeInstructionsCli()
     {
         RequestHandler rh = new RequestHandler();
         List<String> adresses = new ArrayList<String>();

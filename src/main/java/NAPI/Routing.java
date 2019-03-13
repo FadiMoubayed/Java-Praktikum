@@ -9,9 +9,18 @@ import java.util.Arrays;
 import java.util.List;
 
 
+/**
+ * This class interacts with the RoutingApi from the GraphhopperApi
+ */
 public class Routing {
 
 
+    /**
+     * this method gives you a list of instructions on how to travel between given coordinates with a vehicle of your choice
+     * @param points
+     * @param vehicle
+     * @return list of instructions (as Strings)
+     */
     public List<String> getRoute(List<String> points, String vehicle ) {
 
         RoutingApi routing = new RoutingApi();

@@ -7,11 +7,18 @@ import com.graphhopper.directions.api.client.model.GeocodingResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class interacts with the GeoCodingApi from the GraphhopperApi
+ */
 public class GeoCoding {
 
 
-
-    public List<String> convertAddressToCoordinates(String q, String q2){
+    /**
+     * This methods converts a number of adresses into coordinates
+     * @param adresses
+     * @return List of coordinates (as Strings)
+     */
+    public List<String> convertAddressToCoordinates(List<String> adresses){
 
         GeocodingApi apiInstance = new GeocodingApi();
 
@@ -26,23 +33,17 @@ public class GeoCoding {
         List<String> points = new ArrayList();
 
         try {
-            GeocodingResponse resultStartingPoint = apiInstance.geocodeGet(key, q, locale, limit, reverse, point, provider);
-            GeocodingResponse resultDestination = apiInstance.geocodeGet(key, q2, locale, limit, reverse, point, provider);
+            for(int i = 0; i<adresses.size();i++) {
+                GeocodingResponse result = apiInstance.geocodeGet(key, adresses.get(i), locale, limit, reverse, point, provider);
 
-            //Getting latitude and longitude of the starting point
-            double latStart = resultStartingPoint.getHits().get(0).getPoint().getLat();
-            double lngStart = resultStartingPoint.getHits().get(0).getPoint().getLng();
+                //Getting latitude and longitude of the starting point
+                double lat = result.getHits().get(0).getPoint().getLat();
+                double lng = result.getHits().get(0).getPoint().getLng();
 
-            //Getting latitude and longitude of the destination point
-            double latDest = resultDestination.getHits().get(0).getPoint().getLat();
-            double lngDest = resultDestination.getHits().get(0).getPoint().getLng();
+                String onePoint = Double.toString(lat) + "," + Double.toString(lng);
 
-            String start = Double.toString(latStart) + "," + Double.toString(lngStart);
-            String destination = Double.toString(latDest) + "," + Double.toString(lngDest);
-
-            points.add(start);
-            points.add(destination);
-
+                points.add(onePoint);
+            }
 
 
         } catch (ApiException e) {
