@@ -1,12 +1,9 @@
-import com.graphhopper.directions.api.client.*;
-import com.graphhopper.directions.api.client.api.RoutingApi;
-import com.graphhopper.directions.api.client.auth.*;
-import com.graphhopper.directions.api.client.model.*;
-import com.graphhopper.directions.api.client.api.GeocodingApi;
-import org.mvel2.util.Make;
+package NAPI;
 
-import java.io.File;
-import java.util.*;
+import com.graphhopper.directions.api.client.ApiException;
+import com.graphhopper.directions.api.client.api.GeocodingApi;
+import com.graphhopper.directions.api.client.api.RoutingApi;
+import com.graphhopper.directions.api.client.model.GeocodingResponse;
 
 public class GeoCoding {
 
