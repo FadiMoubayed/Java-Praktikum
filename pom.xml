@@ -7,8 +7,9 @@
     <artifactId>NAPI</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!-- https://mvnrepository.com/artifact/com.graphhopper/graphhopper -->
     <dependencies>
+
+
         <!-- https://mvnrepository.com/artifact/com.graphhopper/graphhopper-core -->
         <dependency>
             <groupId>com.graphhopper</groupId>
@@ -16,17 +17,37 @@
             <version>0.3</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-core</artifactId>
-            <version>6.1.0.Final</version>
-        </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.graphhopper/directions-api-client -->
         <dependency>
             <groupId>com.graphhopper</groupId>
             <artifactId>directions-api-client</artifactId>
             <version>0.10.1-4</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.4.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.container</groupId>
+            <artifactId>arquillian-container-test-api</artifactId>
+            <version>1.4.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-core</artifactId>
+            <version>1.4.1.Final</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

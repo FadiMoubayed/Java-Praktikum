@@ -2,8 +2,16 @@ package NAPI;
 
 import java.util.List;
 
+/**
+ * @autor StefanThomasFadiPaula
+ */
 public class RequestHandler {
 
+    /**
+     * @param adresses
+     * @param vehicle
+     * @return route as a list of instructions
+     */
     public List<String> calculateRoute(List<String> adresses, String vehicle)
     {
         List<String> route = null;
