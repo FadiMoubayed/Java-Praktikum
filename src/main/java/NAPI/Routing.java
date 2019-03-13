@@ -11,14 +11,8 @@ import java.util.List;
 
 public class Routing {
 
-    public static void main(String[] args) {
 
-        List<String> x = new GeoCoding().convertAddressToCoordinates("Muenster ifgi", "Muenster hbf");
-
-        new Routing().getRoute(x, "foot");
-    }
-
-    private List<String> getRoute(List<String> points, String vehicle ) {
+    public List<String> getRoute(List<String> points, String vehicle ) {
 
         RoutingApi routing = new RoutingApi();
         String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
