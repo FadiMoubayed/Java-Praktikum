@@ -13,6 +13,7 @@ public class Runner {
         new Runner().routeInstructionsCli();
     }
 
+
     /**
      * This method gives the user a route for the start and destination of his travel with a vehicle of his choosing.
      * The interaction between the user and the Software happens through the CLI.
