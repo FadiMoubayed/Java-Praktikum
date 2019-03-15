@@ -2,7 +2,7 @@ package NAPI;
 
 import javax.swing.*;
 
-public class GUIView {
+public class GUIView extends View {
     private JTextField startTextField;
     private JTextField destTextfield;
     private JButton startCheckButton;
@@ -14,7 +14,7 @@ public class GUIView {
     private JComboBox startCombo;
     private JComboBox destCombo;
 
-
+/*
     public static void main(String[] args) {
         JFrame frame = new JFrame("GUIView");
         frame.setContentPane(new GUIView().GUISwing);
@@ -22,9 +22,10 @@ public class GUIView {
         frame.pack();
         frame.setVisible(true);
     }
+*/
 
-
-    public GUIView() {
+    @Override
+    public void draw() {
         // Create views swing UI components
         startCheckButton = new JButton("check");
 
@@ -35,11 +36,11 @@ public class GUIView {
         JTable table = new JTable();
 
         // Create table model
-        NAPI.RequestHandler model = new NAPI.RequestHandler();
+        RequestHandler model = new RequestHandler();
         table.setModel(model);
 
         // Create controller
-        NAPI.Controller controller = new NAPI.NAPI.Controller(searchTermTextField, model);
+        Controller controller = new Controller(searchTermTextField, model);
         filterButton.addActionListener(controller);
 
         // Set the view layout

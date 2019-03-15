@@ -1,13 +1,11 @@
 package NAPI;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
 public class Controller implements ActionListener {
-
+/*
     private JTextField searchTermTextField = new JTextField(26);
     private DefaultTableModel model;
 
@@ -16,7 +14,7 @@ public class Controller implements ActionListener {
         this.searchTermTextField = searchTermTextField;
         this.model = model;
     }
-
+*/
     @Override
     public void actionPerformed(ActionEvent e) {
 
