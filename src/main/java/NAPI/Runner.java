@@ -33,8 +33,8 @@ public class Runner {
         String vehicle = sn.nextLine();
 
         Routing rt = rh.calculateRoute(adresses, vehicle);
-        System.out.println("Estimated time is: " + rt.getTime() + " Minuets");
-        System.out.println("The total distance is: " + rt.getDistance() + " KM" + "\n");
+        System.out.println("\n" + "Estimated time is: " + rt.getTime() + " Minuets");
+        System.out.print("The total distance is: " + rt.getDistance() + " KM" + "\n");
 
         List<String> instructions = rt.getRoute();
 
