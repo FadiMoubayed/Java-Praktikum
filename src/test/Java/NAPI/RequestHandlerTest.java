@@ -13,10 +13,13 @@ public class RequestHandlerTest {
     @Test
     public void testCalculateRoute()
     {
+
         RequestHandler rh = new RequestHandler();
         List<String> adresses = new ArrayList();
         adresses.add("Muenster ifgi");
         adresses.add("Muenster ifgi");
-        assertThat(rh.calculateRoute(adresses,"car").size(), is(equalTo(1)));
+        Routing rt = rh.calculateRoute(adresses,"car");
+        assertThat(rt.getRoute().size(), is(equalTo(1)));
+
     }
 }

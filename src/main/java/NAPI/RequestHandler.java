@@ -1,5 +1,6 @@
 package NAPI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,16 +15,14 @@ public class RequestHandler {
      * @param vehicle
      * @return route as a list of instructions
      */
-    public List<String> calculateRoute(List<String> adresses, String vehicle)
+    public Routing calculateRoute(List<String> adresses, String vehicle)
     {
         List<String> route = null;
 
         GeoCoding gc = new GeoCoding();
-        Routing rt = new Routing();
-
         List<String> coordinates = null;
         coordinates = gc.convertAddressToCoordinates(adresses);
-        route = rt.getRoute(coordinates,vehicle);
-        return route;
+        Routing rt = new Routing(coordinates,vehicle);
+        return rt;
     }
 }

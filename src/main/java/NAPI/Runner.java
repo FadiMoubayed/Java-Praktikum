@@ -28,11 +28,40 @@ public class Runner {
         System.out.print("Please enter your destination adress: ");
         adresses.add(sn.nextLine());
 
-        System.out.print("Please enter the type of your vehicle: ");
+        System.out.println("Please enter the type of your vehicle: ");
+        System.out.println("car , truck , scooter, foot , hike , bike ");
         String vehicle = sn.nextLine();
 
-        List<String> instructions = rh.calculateRoute(adresses, vehicle);
-        for(int i = 0; i<instructions.size();i++)
+        Routing rt = rh.calculateRoute(adresses, vehicle);
+        System.out.println("Estimated time is: " + rt.getTime() + " Minuets");
+        System.out.println("The total distance is: " + rt.getDistance() + " KM" + "\n");
+
+        List<String> instructions = rt.getRoute();
+
+        for(int i = 0; i<instructions.size();i++) {
             System.out.println(instructions.get(i));
+            // The class of instructions.get(i) is class java.lang.String
+        }
+
+        /*
+        String testString = "test";
+        if(testString == "test"){
+            System.out.println("Testing string is successful");
+        }
+        else {
+            System.out.println("Test string was not successul");
+        }
+
+        System.out.println(instructions.get(0));
+
+        if(instructions.get(0).equals("Continue")){
+            System.out.println("Was able to find continue!");
+        }
+        else{
+            System.out.println("was not able to ind continue :(");
+        }
+        */
+
+
     }
 }
