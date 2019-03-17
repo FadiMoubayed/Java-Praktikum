@@ -78,6 +78,7 @@ public GUIView()
 
     public void updateCombos(String startAddress)
     {
+        startCombo.removeAllItems();
         startCombo.addItem(startAddress);
     }
 }

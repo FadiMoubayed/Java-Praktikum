@@ -68,20 +68,32 @@ public class GeoCoding {
         String provider = "default"; // String | Can be either, default, nominatim, opencagedata
 
 
-        String understoodAdress = "";
+        String understoodAddress = "";
         try {
             GeocodingResponse result = apiInstance.geocodeGet(key, inputAdress, locale, limit, reverse, point, provider);
             GeocodingLocation output = result.getHits().get(0);
             if(output.getCountry() != null) {
-                understoodAdress = result.getHits().get(0).getCountry().toString();
+                understoodAddress = output.getCountry().toString();
 
             }
             if(output.getCity() != null)
             {
-                understoodAdress = understoodAdress + ", " + result.getHits().get(0).getCountry().toString();
+                understoodAddress = understoodAddress + ", " + output.getCountry().toString();
+            }
+            if(output.getPostcode() != null)
+            {
+                understoodAddress = understoodAddress + " " + output.getPostcode().toString();
+            }
+            if(output.getStreet() != null)
+            {
+                understoodAddress = understoodAddress + ", " + output.getStreet().toString();
+            }
+            if(output.getHousenumber() != null)
+            {
+                understoodAddress = understoodAddress + " " + output.getHousenumber().toString();
             }
 
-            understoodAdress = result.getHits().get(0).toString();
+            //understoodAddress = result.getHits().get(0).toString();
                     /*
                     result.getHits().get(0).getCountry().toString()
 
@@ -95,7 +107,7 @@ public class GeoCoding {
             e.printStackTrace();
         }
 
-        return understoodAdress;
+        return understoodAddress;
     }
 
 
