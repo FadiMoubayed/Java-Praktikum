@@ -1,6 +1,7 @@
 package NAPI;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class GUIView extends View {
     private JTextField startTextField;
@@ -23,31 +24,40 @@ public class GUIView extends View {
         frame.setVisible(true);
     }
 */
+public GUIView()
+{
+    this.draw();
+}
 
     @Override
     public void draw() {
         // Create views swing UI components
+        startLabel = new JLabel("start address: ");
+        startTextField = new JTextField(26);
         startCheckButton = new JButton("check");
+        startCombo = new JComboBox();
 
-        /*
-
+/*
         JTextField searchTermTextField = new JTextField(26);
         JButton filterButton = new JButton("Filter");
         JTable table = new JTable();
-
+*/
         // Create table model
         RequestHandler model = new RequestHandler();
-        table.setModel(model);
+        //table.setModel(model);
 
         // Create controller
-        Controller controller = new Controller(searchTermTextField, model);
-        filterButton.addActionListener(controller);
+        Controller controller = new Controller(startTextField, startCheckButton, model, this);
+        startCheckButton.addActionListener(controller);
 
         // Set the view layout
         JPanel ctrlPane = new JPanel();
-        ctrlPane.add(searchTermTextField);
-        ctrlPane.add(filterButton);
+        ctrlPane.add(startLabel);
+        ctrlPane.add(startTextField);
+        ctrlPane.add(startCheckButton);
+        ctrlPane.add(startCombo);
 
+        /*
         JScrollPane tableScrollPane = new JScrollPane(table);
         tableScrollPane.setPreferredSize(new Dimension(700, 182));
         tableScrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Market Movers",
@@ -56,14 +66,18 @@ public class GUIView extends View {
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctrlPane, tableScrollPane);
         splitPane.setDividerLocation(35);
         splitPane.setEnabled(false);
-
+*/
         // Display it all in a scrolling window and make the window appear
         JFrame frame = new JFrame("Swing MVC Demo");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(splitPane);
+        frame.add(ctrlPane);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        */
+    }
+
+    public void updateCombos(String startAddress)
+    {
+        startCombo.addItem(startAddress);
     }
 }

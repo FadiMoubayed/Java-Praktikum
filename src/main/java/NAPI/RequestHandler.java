@@ -24,4 +24,9 @@ public class RequestHandler {
         Routing rt = new Routing(coordinates,vehicle);
         return rt;
     }
+    public String calculateLocation(String inputAdress)
+    {
+        GeoCoding gc = new GeoCoding();
+        return gc.understandInputAdress(inputAdress);
+    }
 }

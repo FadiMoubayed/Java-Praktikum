@@ -1,6 +1,6 @@
 package NAPI;
 
-public class CLIView extends View {
+public class CliView extends View {
 
     @Override
     public void draw() {

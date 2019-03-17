@@ -2,6 +2,7 @@ package NAPI;
 
 import com.graphhopper.directions.api.client.ApiException;
 import com.graphhopper.directions.api.client.api.GeocodingApi;
+import com.graphhopper.directions.api.client.model.GeocodingLocation;
 import com.graphhopper.directions.api.client.model.GeocodingResponse;
 
 import java.util.ArrayList;
@@ -54,7 +55,48 @@ public class GeoCoding {
         return points;
     }
 
+    public String understandInputAdress(String inputAdress)
+    {
+        GeocodingApi apiInstance = new GeocodingApi();
 
+        String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54"; // String | Get your key at graphhopper.com
+
+        String locale = "en"; // String | Display the search results for the specified locale. Currently French (fr), English (en), German (de) and Italian (it) are supported. If the locale wasn't found the default (en) is used.
+        Integer limit = 1; // Integer | Specify the maximum number of returned results
+        Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
+        String point = "51.9692,7.5958"; // String | The location bias in the format 'latitude,longitude' e.g. point=45.93272,11.58803
+        String provider = "default"; // String | Can be either, default, nominatim, opencagedata
+
+
+        String understoodAdress = "";
+        try {
+            GeocodingResponse result = apiInstance.geocodeGet(key, inputAdress, locale, limit, reverse, point, provider);
+            GeocodingLocation output = result.getHits().get(0);
+            if(output.getCountry() != null) {
+                understoodAdress = result.getHits().get(0).getCountry().toString();
+
+            }
+            if(output.getCity() != null)
+            {
+                understoodAdress = understoodAdress + ", " + result.getHits().get(0).getCountry().toString();
+            }
+
+            understoodAdress = result.getHits().get(0).toString();
+                    /*
+                    result.getHits().get(0).getCountry().toString()
+
+                    + ", " + result.getHits().get(0).getPostcode().toString()
+                    +  result.getHits().get(0).getStreet().toString();
+                    */
+
+
+        } catch (ApiException e) {
+            System.err.println("Exception when calling GeocodingApi#geocodeGet");
+            e.printStackTrace();
+        }
+
+        return understoodAdress;
+    }
 
 
 
