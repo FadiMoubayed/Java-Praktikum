@@ -25,8 +25,7 @@ public class Controller implements ActionListener {
         if(e.getSource() == this.startCheckButton)
         {
             String inputAddress = startTextField.getText();
-            System.out.print(model.calculateLocation(inputAddress));
-            //view.updateCombos(model.calculateLocation(inputAddress));
+            view.updateCombos(model.calculateLocation(inputAddress));
         }
     }
 
