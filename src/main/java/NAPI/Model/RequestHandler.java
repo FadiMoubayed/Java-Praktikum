@@ -30,6 +30,6 @@ public class RequestHandler {
     public String calculateLocation(String inputAdress)
     {
         GeoCoding gc = new GeoCoding();
-        return gc.understandInputAdress(inputAdress);
+        return gc.understandInputAddress(inputAdress);
     }
 }
