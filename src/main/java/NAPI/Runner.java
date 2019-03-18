@@ -1,5 +1,9 @@
 package NAPI;
 
+import NAPI.Model.RequestHandler;
+import NAPI.Model.Routing;
+import NAPI.View.GUIView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;

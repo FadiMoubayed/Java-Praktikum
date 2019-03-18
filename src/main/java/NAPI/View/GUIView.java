@@ -1,9 +1,12 @@
-package NAPI;
+package NAPI.View;
+
+import NAPI.Controller.GuiController;
+import NAPI.Model.RequestHandler;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GUIView extends View {
+public class GUIView{
     private JTextField startTextField;
     private JTextField destTextField;
     private JButton startCheckButton;
@@ -31,7 +34,6 @@ public GUIView()
     this.draw();
 }
 
-    @Override
     public void draw() {
 
         // Create views swing UI components
@@ -57,10 +59,10 @@ public GUIView()
         RequestHandler model = new RequestHandler();
         //table.setModel(model);
 
-        // Create controller
-        Controller controller = new Controller(startTextField, destTextField, startCheckButton, destCheckButton, model, this);
-        startCheckButton.addActionListener(controller);
-        destCheckButton.addActionListener(controller);
+        // Create guiController
+        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, model, this);
+        startCheckButton.addActionListener(guiController);
+        destCheckButton.addActionListener(guiController);
 
         // Set the view layout
         GridBagConstraints gbc = new GridBagConstraints();

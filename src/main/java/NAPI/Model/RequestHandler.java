@@ -1,4 +1,7 @@
-package NAPI;
+package NAPI.Model;
+
+import NAPI.Model.GeoCoding;
+import NAPI.Model.Routing;
 
 import java.util.List;
 

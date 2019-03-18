@@ -1,11 +1,14 @@
-package NAPI;
+package NAPI.Controller;
+
+import NAPI.Model.RequestHandler;
+import NAPI.View.GUIView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class Controller implements ActionListener {
+public class GuiController implements ActionListener {
 
     private JTextField startTextField;
     private JTextField destTextField;
@@ -14,7 +17,7 @@ public class Controller implements ActionListener {
     private RequestHandler model;
     private GUIView view;
 
-    public Controller(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton, RequestHandler model, GUIView view) {
+    public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton, RequestHandler model, GUIView view) {
         super();
         this.startTextField = startTextField;
         this.destTextField = destTextField;

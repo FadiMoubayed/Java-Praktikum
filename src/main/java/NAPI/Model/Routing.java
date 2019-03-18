@@ -1,4 +1,4 @@
-package NAPI;
+package NAPI.Model;
 import com.graphhopper.directions.api.client.ApiException;
 import com.graphhopper.directions.api.client.api.RoutingApi;
 import com.graphhopper.directions.api.client.model.RouteResponse;
