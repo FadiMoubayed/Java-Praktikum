@@ -50,14 +50,14 @@ public class Routing {
 
 
     // A method to convert time from miliseconds to minuets
-    public void calcTime(){
+    private void calcTime(){
         long estimatedTimeMilliSeconds = (path.getTime());
         long estimatedTimeMinutes = TimeUnit.MILLISECONDS.toMinutes(estimatedTimeMilliSeconds);
         time = estimatedTimeMinutes;
     }
 
     // A method to convert distance from meters to KM
-    public void calcDist(){
+    private void calcDist(){
         double routeDistance = path.getDistance()/1000;
         // Formatting the distance to display 2 digits
         String routeDistanceString = String.format("%.2f", routeDistance);
