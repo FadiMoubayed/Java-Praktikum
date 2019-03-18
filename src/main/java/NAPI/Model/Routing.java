@@ -25,7 +25,8 @@ public class Routing {
 
     public Routing(List<String> points, String vehicle)
     {
-        // To-do: test if the input is correct
+        if(vehicle != "car" && vehicle != "truck" && vehicle != "scooter" && vehicle != "foot" && vehicle != "hike" && vehicle != "bike")
+            throw new IllegalArgumentException("vehicle type is not recognized");
         calcPath(points, vehicle);
         calcTime();
         calcDist();
@@ -59,7 +60,7 @@ public class Routing {
     // A method to convert distance from meters to KM
     private void calcDist(){
         double routeDistance = path.getDistance()/1000;
-        // Formatting the distance to display 2 digits
+        //Formatting the distance to display 2 digits
         String routeDistanceString = String.format("%.2f", routeDistance);
         distance = routeDistanceString;
     }
