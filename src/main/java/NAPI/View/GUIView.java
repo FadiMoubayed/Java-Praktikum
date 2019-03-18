@@ -6,6 +6,9 @@ import NAPI.Model.RequestHandler;
 import javax.swing.*;
 import java.awt.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GUIView{
     private JTextField startTextField;
     private JTextField destTextField;
@@ -15,9 +18,11 @@ public class GUIView{
     private JLabel ueberschrift;
     private JLabel startLabel;
     private JLabel destLabel;
-    private JComboBox startCombo;
-    private JComboBox destCombo;
-    private JTextField outputTextField;
+    private JLabel startCheckLabel;
+    private JLabel destCheckLabel;
+    private JTextArea outputTextArea;
+    private JButton calculateButton;
+    private JCheckBox
     private JFrame frame;
 
 /*
@@ -40,14 +45,16 @@ public GUIView()
         startLabel = new JLabel("start address: ");
         startTextField = new JTextField(26);
         startCheckButton = new JButton("check");
-        startCombo = new JComboBox();
+        startCheckLabel = new JLabel();
 
         destLabel = new JLabel("dest address: ");
         destTextField = new JTextField(26);
         destCheckButton = new JButton("check");
-        destCombo = new JComboBox();
+        destCheckLabel = new JLabel();
 
-        outputTextField = new JTextField(26);
+        calculateButton = new JButton("calculate");
+        outputTextArea = new JTextArea();
+        JScrollPane scrollpane = new JScrollPane(outputTextArea);
 
 
 /*
@@ -60,14 +67,17 @@ public GUIView()
         //table.setModel(model);
 
         // Create guiController
-        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, model, this);
+        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton, model, this);
         startCheckButton.addActionListener(guiController);
         destCheckButton.addActionListener(guiController);
+        calculateButton.addActionListener(guiController);
 
         // Set the view layout
         GridBagConstraints gbc = new GridBagConstraints();
         JPanel ctrlPane = new JPanel();
         ctrlPane.setLayout(new GridBagLayout());
+        gbc.weightx = 1;
+        gbc.weighty = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -86,7 +96,7 @@ public GUIView()
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 3;
         gbc.gridy = 0;
-        ctrlPane.add(startCombo, gbc);
+        ctrlPane.add(startCheckLabel, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
@@ -104,13 +114,19 @@ public GUIView()
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 3;
         gbc.gridy = 1;
-        ctrlPane.add(destCombo, gbc);
+        ctrlPane.add(destCheckLabel, gbc);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        ctrlPane.add(calculateButton, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridwidth = 3;
+        gbc.ipady = 300;
         gbc.gridx = 1;
-        gbc.gridy = 2;
-        ctrlPane.add(outputTextField);
+        gbc.gridy = 3;
+        ctrlPane.add(scrollpane,gbc);
 
 
         /*
@@ -132,12 +148,22 @@ public GUIView()
         frame.setVisible(true);
     }
 
-    public void updateCombos(String startAddress, String destAddress)
+    public void updateLabels(String startAddress, String destAddress)
     {
-        startCombo.removeAllItems();
-        startCombo.addItem(startAddress);
-        destCombo.removeAllItems();
-        destCombo.addItem(destAddress);
+        if(startAddress != "") {
+            startCheckLabel.setText(startAddress);
+        }
+        if(destAddress != "") {
+            destCheckLabel.setText(destAddress);
+        }
         // SwingUtilities.updateComponentTreeUI(frame);
+    }
+    public void updateOutput(List<String> instructions)
+    {
+        outputTextArea.setRows(instructions.size() + 1);
+        for(int i = 0; i<instructions.size();i++) {
+            outputTextArea.append(instructions.get(i) + "\n");
+            // The class of instructions.get(i) is class java.lang.String
+        }
     }
 }

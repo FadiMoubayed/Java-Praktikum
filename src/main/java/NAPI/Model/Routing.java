@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * This class interacts with the RoutingApi from the GraphhopperApi
  */
-class Routing {
+public class Routing {
 
     private RoutingApi routing;
     private RouteResponsePath path;
