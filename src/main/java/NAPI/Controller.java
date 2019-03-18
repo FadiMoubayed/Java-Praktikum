@@ -8,14 +8,18 @@ import java.awt.event.ActionListener;
 public class Controller implements ActionListener {
 
     private JTextField startTextField;
+    private JTextField destTextField;
     private JButton startCheckButton;
+    private JButton destCheckButton;
     private RequestHandler model;
     private GUIView view;
 
-    public Controller(JTextField startTextField, JButton startCheckButton, RequestHandler model, GUIView view) {
+    public Controller(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton, RequestHandler model, GUIView view) {
         super();
         this.startTextField = startTextField;
+        this.destTextField = destTextField;
         this.startCheckButton = startCheckButton;
+        this.destCheckButton = destCheckButton;
         this.model = model;
         this.view = view;
     }
@@ -24,8 +28,16 @@ public class Controller implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.startCheckButton)
         {
-            String inputAddress = startTextField.getText();
-            view.updateCombos(model.calculateLocation(inputAddress));
+            String startAddress = startTextField.getText();
+            String destAddress = destTextField.getText() + "";
+            view.updateCombos(model.calculateLocation(startAddress), destAddress);
+        }
+        else if(e.getSource() == this.destCheckButton)
+        {
+            String startAddress = startTextField.getText() + "";
+            String destAddress = destTextField.getText();
+            System.out.print(destAddress);
+            view.updateCombos(startAddress, model.calculateLocation(destAddress));
         }
     }
 

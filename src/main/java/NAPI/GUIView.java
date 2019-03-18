@@ -14,6 +14,7 @@ public class GUIView extends View {
     private JLabel destLabel;
     private JComboBox startCombo;
     private JComboBox destCombo;
+    private JTextField outputTextField;
     private JFrame frame;
 
 /*
@@ -44,6 +45,8 @@ public GUIView()
         destCheckButton = new JButton("check");
         destCombo = new JComboBox();
 
+        outputTextField = new JTextField(26);
+
 
 /*
         JTextField searchTermTextField = new JTextField(26);
@@ -55,8 +58,9 @@ public GUIView()
         //table.setModel(model);
 
         // Create controller
-        Controller controller = new Controller(startTextField, startCheckButton, model, this);
+        Controller controller = new Controller(startTextField, destTextField, startCheckButton, destCheckButton, model, this);
         startCheckButton.addActionListener(controller);
+        destCheckButton.addActionListener(controller);
 
         // Set the view layout
         GridBagConstraints gbc = new GridBagConstraints();
@@ -67,22 +71,20 @@ public GUIView()
         gbc.gridy = 0;
         ctrlPane.add(startLabel, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx = 200;
         gbc.gridx = 1;
         gbc.gridy = 0;
         ctrlPane.add(startTextField,gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weighty = 1;
-        gbc.ipady = 30;
+        gbc.ipadx = 0;
+        gbc.ipady = 0;
         gbc.gridx = 2;
         gbc.gridy = 0;
-        ctrlPane.add(startCheckButton);
+        ctrlPane.add(startCheckButton, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 3;
         gbc.gridy = 0;
-        ctrlPane.add(startCombo);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 4;
-        gbc.gridy = 0;
+        ctrlPane.add(startCombo, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
@@ -93,16 +95,21 @@ public GUIView()
         gbc.gridy = 1;
         ctrlPane.add(destTextField,gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 0;
         gbc.gridx = 2;
         gbc.gridy = 1;
-        ctrlPane.add(destCheckButton);
+        ctrlPane.add(destCheckButton, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 3;
         gbc.gridy = 1;
-        ctrlPane.add(destCombo);
+        ctrlPane.add(destCombo, gbc);
+
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 4;
-        gbc.gridy = 1;
+        gbc.gridwidth = 3;
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        ctrlPane.add(outputTextField);
+
 
         /*
         JScrollPane tableScrollPane = new JScrollPane(table);
@@ -115,7 +122,7 @@ public GUIView()
         splitPane.setEnabled(false);
 */
         // Display it all in a scrolling window and make the window appear
-        JFrame frame = new JFrame("Swing MVC Demo");
+        JFrame frame = new JFrame("NAPI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(ctrlPane);
         frame.pack();
@@ -123,10 +130,12 @@ public GUIView()
         frame.setVisible(true);
     }
 
-    public void updateCombos(String startAddress)
+    public void updateCombos(String startAddress, String destAddress)
     {
         startCombo.removeAllItems();
         startCombo.addItem(startAddress);
-        SwingUtilities.updateComponentTreeUI(frame);
+        destCombo.removeAllItems();
+        destCombo.addItem(destAddress);
+        // SwingUtilities.updateComponentTreeUI(frame);
     }
 }
