@@ -14,7 +14,8 @@ import java.util.Scanner;
 public class Runner {
     public static void main(String[] args)
     {
-        GUIView gv = new GUIView();
+        GUI_Try1 gt = new GUI_Try1();
+        //GUIView gv = new GUIView();
         //new Runner().routeInstructionsCli();
     }
 

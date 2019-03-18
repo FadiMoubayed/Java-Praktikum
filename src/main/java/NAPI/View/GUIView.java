@@ -60,9 +60,11 @@ public GUIView()
         //table.setModel(model);
 
         // Create guiController
+        /*
         GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, model, this);
         startCheckButton.addActionListener(guiController);
         destCheckButton.addActionListener(guiController);
+        */
 
         // Set the view layout
         GridBagConstraints gbc = new GridBagConstraints();
