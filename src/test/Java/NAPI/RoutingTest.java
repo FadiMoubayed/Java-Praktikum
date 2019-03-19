@@ -2,11 +2,10 @@ package NAPI;
 
 import org.junit.jupiter.api.Test;
 
-public class GeoCodingTest {
+public class RoutingTest {
     @Test
-    public void testConvertInput()
+    public void testCalcRoute()
     {
 
     }
-
 }
