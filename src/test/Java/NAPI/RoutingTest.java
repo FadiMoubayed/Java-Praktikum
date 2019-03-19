@@ -1,6 +1,7 @@
 package NAPI;
 
 import NAPI.Model.Routing;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -19,6 +20,7 @@ public class RoutingTest {
         List<String> output = new ArrayList();
         output.add("Arrive at destination");
         assertThat(rt.getRoute(),is(equalTo(output)));
-
+        assertThat(rt.getDistance(), is(CoreMatchers.equalTo("0,00")));
+        assertThat(rt.getTime(), is(equalTo((long)0)));
     }
 }
