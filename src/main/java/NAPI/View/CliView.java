@@ -19,10 +19,18 @@ public class CliView{
         List<String> adresses = new ArrayList<String>();
         Scanner sn = new Scanner(System.in);
         System.out.print("Please enter your starting address: ");
-        adresses.add(sn.nextLine());
+        String startingAddress = "";
+        while (startingAddress.isEmpty()) {
+            startingAddress = sn.nextLine();
+        }
+        adresses.add(startingAddress);
 
         System.out.print("Please enter your destination address: ");
-        adresses.add(sn.nextLine());
+        String destinationAddress = "";
+        while (destinationAddress.isEmpty()) {
+            destinationAddress = sn.nextLine();
+        }
+        adresses.add(destinationAddress);
 
         String vehicle = "";
         System.out.println("Please enter the type of your vehicle: ");
