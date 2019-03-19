@@ -10,6 +10,11 @@ import java.util.Scanner;
 
 public class CliView{
 
+    public CliView()
+    {
+        this.draw();
+    }
+
     public void draw() {
         List<String> adresses = new ArrayList<String>();
         Scanner sn = new Scanner(System.in);

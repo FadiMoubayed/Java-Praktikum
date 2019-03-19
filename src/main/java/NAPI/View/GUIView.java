@@ -29,15 +29,7 @@ public class GUIView{
     private ButtonGroup vehicleRadio;
     private JFrame frame;
 
-/*
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("GUIView");
-        frame.setContentPane(new GUIView().GUISwing);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
-    }
-*/
+
 public GUIView()
 {
     this.draw();
