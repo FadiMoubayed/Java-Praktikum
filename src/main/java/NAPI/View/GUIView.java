@@ -22,7 +22,8 @@ public class GUIView{
     private JLabel destCheckLabel;
     private JTextArea outputTextArea;
     private JButton calculateButton;
-    private JCheckBox
+    private JRadioButton carCheck;
+
     private JFrame frame;
 
 /*
