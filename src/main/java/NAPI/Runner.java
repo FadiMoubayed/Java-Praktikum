@@ -16,8 +16,8 @@ import java.util.Scanner;
 public class Runner {
     public static void main(String[] args)
     {
-        GUIView gv = new GUIView();
-        //CliView cv = new CliView();
+        //GUIView gv = new GUIView();
+        CliView cv = new CliView();
     }
 
 
