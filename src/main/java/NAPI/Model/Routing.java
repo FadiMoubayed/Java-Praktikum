@@ -43,8 +43,17 @@ public class Routing {
             path = rsp.getPaths().get(0);
         } catch (ApiException ex)
         {
-            System.out.println(ex.getResponseBody());
-            throw new RuntimeException(ex);
+            //System.out.println(ex.getResponseBody());
+            if (ex.getResponseBody().contains("Connection between locations not found")){
+                System.out.println("There is no connection between the two locations. This program terminates here.");
+                throw new IllegalArgumentException(ex);
+            }
+            else {
+                System.out.println(ex.getResponseBody());
+                ex.printStackTrace();
+                throw new RuntimeException(ex);
+            }
+
         }
     }
 

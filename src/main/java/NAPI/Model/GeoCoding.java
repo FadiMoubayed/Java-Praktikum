@@ -53,7 +53,10 @@ public class GeoCoding {
             }
 
 
-        } catch (ApiException e) {
+        }
+
+
+        catch (ApiException e) {
             System.err.println("Exception when calling GeocodingApi#geocodeGet");
             e.printStackTrace();
         }
