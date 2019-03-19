@@ -17,10 +17,10 @@ public class RequestHandlerTest {
     {
 
         RequestHandler rh = new RequestHandler();
-        List<String> adresses = new ArrayList();
-        adresses.add("Muenster ifgi");
-        adresses.add("Muenster ifgi");
-        Routing rt = rh.calculateRoute(adresses,"car");
+        List<String> addresses = new ArrayList();
+        addresses.add("Muenster ifgi");
+        addresses.add("Muenster ifgi");
+        Routing rt = rh.calculateRoute(addresses,"car");
         assertThat(rt.getRoute().size(), is(equalTo(1)));
 
     }

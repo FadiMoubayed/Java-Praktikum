@@ -9,4 +9,9 @@ public class GeoCodingTest {
 
     }
 
+    @Test
+    public void testUnderstandInputAddress()
+    {
+
+    }
 }
