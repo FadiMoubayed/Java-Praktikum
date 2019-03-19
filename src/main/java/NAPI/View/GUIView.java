@@ -48,8 +48,8 @@ public GUIView()
         destCheckButton = new JButton("check");
         destCheckLabel = new JLabel();
 
-        vehicleLabel = new JLabel("vehicle type");
-        carRadio = new JRadioButton("car");
+        vehicleLabel = new JLabel("vehicle type: ");
+        carRadio = new JRadioButton("car", true);
         footRadio = new JRadioButton("foot");
         bikeRadio = new JRadioButton("bike");
         vehicleRadio = new ButtonGroup();
