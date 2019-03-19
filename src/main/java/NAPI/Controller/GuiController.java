@@ -1,6 +1,7 @@
 package NAPI.Controller;
 
 import NAPI.Model.RequestHandler;
+import NAPI.Model.Routing;
 import NAPI.View.GUIView;
 
 import javax.swing.*;
@@ -20,6 +21,8 @@ public class GuiController implements ActionListener {
     private RequestHandler model;
     private GUIView view;
 
+    private String vehicle;
+
     public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, RequestHandler model, GUIView view) {
         super();
         this.startTextField = startTextField;
@@ -29,6 +32,8 @@ public class GuiController implements ActionListener {
         this.calculateButton = calculateButton;
         this.model = model;
         this.view = view;
+
+        vehicle = "car";
     }
 
     @Override
@@ -39,18 +44,23 @@ public class GuiController implements ActionListener {
             String destAddress = "";
             view.updateLabels(model.calculateLocation(startAddress), destAddress);
         }
-        if(e.getSource() == this.destCheckButton)
+        else if(e.getSource() == this.destCheckButton)
         {
             String startAddress = "";
             String destAddress = destTextField.getText() + "";
             view.updateLabels(startAddress, model.calculateLocation(destAddress));
         }
-        if(e.getSource() == this.calculateButton)
+        else if(e.getSource() == this.calculateButton)
         {
             List<String> addresses = new ArrayList<String>();
             addresses.add(startTextField.getText() + "");
             addresses.add(destTextField.getText() + "");
-            view.updateOutput(model.calculateRoute(addresses, "car").getRoute());
+            Routing rt = model.calculateRoute(addresses, vehicle);
+            view.updateOutput(rt.getTime(),rt.getDistance(),rt.getRoute());
+        }
+        else
+        {
+            vehicle = e.getActionCommand();
         }
     }
 

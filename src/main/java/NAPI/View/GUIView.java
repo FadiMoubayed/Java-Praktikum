@@ -27,6 +27,7 @@ public class GUIView{
     private JRadioButton footRadio;
     private JRadioButton bikeRadio;
     private ButtonGroup vehicleRadio;
+    private JLabel outputLabel;
     private JFrame frame;
 
 
@@ -43,8 +44,9 @@ public GUIView()
         startCheckButton = new JButton("check");
         startCheckLabel = new JLabel();
 
+
         destLabel = new JLabel("dest address: ");
-        destTextField = new JTextField(26);
+        destTextField = new JTextField();
         destCheckButton = new JButton("check");
         destCheckLabel = new JLabel();
 
@@ -58,15 +60,10 @@ public GUIView()
         vehicleRadio.add(footRadio);
 
         calculateButton = new JButton("calculate");
+        outputLabel = new JLabel("output:");
         outputTextArea = new JTextArea();
         JScrollPane outputPane = new JScrollPane(outputTextArea);
 
-
-/*
-        JTextField searchTermTextField = new JTextField(26);
-        JButton filterButton = new JButton("Filter");
-        JTable table = new JTable();
-*/
         // Create table model
         RequestHandler model = new RequestHandler();
         //table.setModel(model);
@@ -76,6 +73,12 @@ public GUIView()
         startCheckButton.addActionListener(guiController);
         destCheckButton.addActionListener(guiController);
         calculateButton.addActionListener(guiController);
+        carRadio.setActionCommand("car");
+        carRadio.addActionListener(guiController);
+        footRadio.setActionCommand("foot");
+        footRadio.addActionListener(guiController);
+        bikeRadio.setActionCommand("bike");
+        bikeRadio.addActionListener(guiController);
 
         // Set the view layout
         GridBagConstraints gbc = new GridBagConstraints();
@@ -98,11 +101,13 @@ public GUIView()
         gbc.gridy = 0;
         ctrlPane.add(startCheckButton, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx = 100;
         gbc.gridx = 5;
         gbc.gridy = 0;
         ctrlPane.add(startCheckLabel, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipadx = 0;
         gbc.gridx = 0;
         gbc.gridy = 1;
         ctrlPane.add(destLabel, gbc);
@@ -140,22 +145,34 @@ public GUIView()
         ctrlPane.add(bikeRadio, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.ipady = 15;
+        gbc.gridwidth = 4;
         gbc.gridx = 1;
         gbc.gridy = 3;
         ctrlPane.add(calculateButton, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.PAGE_START;
+        gbc.ipady = 0;
+        gbc.gridwidth = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        ctrlPane.add(outputLabel, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
         gbc.gridwidth = 5;
         gbc.ipady = 300;
         gbc.gridx = 1;
         gbc.gridy = 4;
-        ctrlPane.add(outputPane,gbc);
+        ctrlPane.add(outputPane, gbc);
 
-        // Display it all in a scrolling window and make the window appear
+        ImageIcon img = new ImageIcon("C:\\Users\\paula\\Java-Praktikum\\earth.png");
         JFrame frame = new JFrame("NAPI");
+        frame.setIconImage(img.getImage());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(ctrlPane);
         frame.pack();
+        frame.setSize(900, 500);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
@@ -168,14 +185,19 @@ public GUIView()
         if(destAddress != "") {
             destCheckLabel.setText(destAddress);
         }
-        // SwingUtilities.updateComponentTreeUI(frame);
     }
-    public void updateOutput(List<String> instructions)
+    public void updateOutput(long time, String distance, List<String> instructions)
     {
-        outputTextArea.setRows(instructions.size() + 1);
+        outputTextArea.setText("");
+        outputTextArea.setRows(instructions.size() + 3);
+        outputTextArea.append("Estimated time is: " + time + " minutes" + "\n");
+        outputTextArea.append("The total distance is: " + distance + " kilometers" + "\n" + "\n");
         for(int i = 0; i<instructions.size();i++) {
             outputTextArea.append(instructions.get(i) + "\n");
-            // The class of instructions.get(i) is class java.lang.String
         }
+    }
+    public void errorMessage(String message)
+    {
+        outputTextArea.setText(message);
     }
 }
