@@ -25,10 +25,13 @@ public class CliView{
         adresses.add(sn.nextLine());
 
         String vehicle = "";
-        System.out.println("Please enter the type of your vehicle: ");
-        System.out.println("car, truck, scooter, foot, hike, bike ");
-        while (!vehicle.equals("car") && !vehicle.equals("truck") && !vehicle.equals("scooter") && !vehicle.equals("foot") && !vehicle.equals("hike") && !vehicle.equals("bike")) {
+        while (true) {
+            System.out.println("Please enter the type of your vehicle: ");
+            System.out.println("car, truck, scooter, foot, hike, bike ");
             vehicle = sn.nextLine();
+            if (vehicle.equals("car") || vehicle.equals("truck") || vehicle.equals("scooter") || vehicle.equals("foot") || vehicle.equals("hike") || vehicle.equals("bike")) {
+                break;
+            }
         }
 
 
