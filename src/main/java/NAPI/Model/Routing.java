@@ -25,7 +25,6 @@ public class Routing {
 
     public Routing(List<String> points, String vehicle)
     {
-        // To-do: test if the input is correct
         calcPath(points, vehicle);
         calcTime();
         calcDist();
@@ -43,8 +42,10 @@ public class Routing {
             path = rsp.getPaths().get(0);
         } catch (ApiException ex)
         {
-            System.out.println(ex.getResponseBody());
-            throw new RuntimeException(ex);
+            if(ex.getResponseBody().contains("Connection between locations not found"))
+                throw new IllegalArgumentException("Connection between locations not found");
+            else
+                throw new IllegalArgumentException(ex.getResponseBody());
         }
     }
 

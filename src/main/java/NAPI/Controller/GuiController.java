@@ -42,21 +42,40 @@ public class GuiController implements ActionListener {
         {
             String startAddress = startTextField.getText() + "";
             String destAddress = "";
-            view.updateLabels(model.calculateLocation(startAddress), destAddress);
+            try {
+                view.updateLabels(model.calculateLocation(startAddress), destAddress);
+            } catch (IllegalArgumentException ex)
+            {
+                view.errorMessage("error while checking start address: \n" + ex.getMessage());
+                startTextField.setText("");
+            }
         }
         else if(e.getSource() == this.destCheckButton)
         {
             String startAddress = "";
             String destAddress = destTextField.getText() + "";
-            view.updateLabels(startAddress, model.calculateLocation(destAddress));
+            try {
+                view.updateLabels(startAddress, model.calculateLocation(destAddress));
+            } catch (IllegalArgumentException ex)
+            {
+                view.errorMessage("error while checking destination address: \n" + ex.getMessage());
+                destTextField.setText("");
+            }
         }
         else if(e.getSource() == this.calculateButton)
         {
             List<String> addresses = new ArrayList<String>();
             addresses.add(startTextField.getText() + "");
             addresses.add(destTextField.getText() + "");
-            Routing rt = model.calculateRoute(addresses, vehicle);
-            view.updateOutput(rt.getTime(),rt.getDistance(),rt.getRoute());
+            Routing rt;
+            try {
+                rt  = model.calculateRoute(addresses, vehicle);
+                view.updateOutput(rt.getTime(),rt.getDistance(),rt.getRoute());
+            } catch (IllegalArgumentException ex)
+            {
+                view.errorMessage("error while calculating: \n" + ex.getMessage());
+            }
+
         }
         else
         {

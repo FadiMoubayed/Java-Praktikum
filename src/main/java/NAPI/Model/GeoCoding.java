@@ -38,9 +38,9 @@ public class GeoCoding {
         String provider = "default"; // String | Can be either, default, nominatim, opencagedata
 
         List<String> points = new ArrayList();
+        for(int i = 0; i<addresses.size();i++) {
+            try {
 
-        try {
-            for(int i = 0; i<addresses.size();i++) {
                 GeocodingResponse result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
 
                 //Getting latitude and longitude of the starting point
@@ -50,12 +50,11 @@ public class GeoCoding {
                 String onePoint = Double.toString(lat) + "," + Double.toString(lng);
 
                 points.add(onePoint);
+
+
+            } catch (ApiException e) {
+                new IllegalArgumentException(e.getResponseBody());
             }
-
-
-        } catch (ApiException e) {
-            System.err.println("Exception when calling GeocodingApi#geocodeGet");
-            e.printStackTrace();
         }
 
         return points;
@@ -93,8 +92,7 @@ public class GeoCoding {
                 understoodAddress = understoodAddress + " " + output.getHousenumber().toString();
             }
         } catch (ApiException e) {
-            System.err.println("Exception when calling GeocodingApi#geocodeGet");
-            e.printStackTrace();
+            throw new IllegalArgumentException(e.getResponseBody());
         }
 
         return understoodAddress;
