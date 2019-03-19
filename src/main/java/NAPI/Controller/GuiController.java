@@ -43,7 +43,8 @@ public class GuiController implements ActionListener {
             String startAddress = startTextField.getText() + "";
             String destAddress = "";
             try {
-                view.updateLabels(model.calculateLocation(startAddress), destAddress);
+                String output = model.calculateLocation(startAddress);
+                view.updateLabels(output, destAddress);
             } catch (IllegalArgumentException ex)
             {
                 view.errorMessage("error while checking start address: \n" + ex.getMessage());

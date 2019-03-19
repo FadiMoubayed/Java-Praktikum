@@ -5,6 +5,7 @@ import com.graphhopper.directions.api.client.api.GeocodingApi;
 import com.graphhopper.directions.api.client.model.GeocodingLocation;
 import com.graphhopper.directions.api.client.model.GeocodingResponse;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +54,10 @@ public class GeoCoding {
 
 
             } catch (ApiException e) {
-                new IllegalArgumentException(e.getResponseBody());
+                if(e.getCause() instanceof UnknownHostException)
+                    new IllegalArgumentException("couldnt connect to network.");
+                else
+                    new IllegalArgumentException(e.getResponseBody());
             }
         }
 
@@ -68,31 +72,37 @@ public class GeoCoding {
 
 
         String understoodAddress = "";
+        GeocodingResponse result = new GeocodingResponse();
         try {
-            GeocodingResponse result = geocode.geocodeGet(key, inputAdress, language, limit, reverse, "", provider);
-            GeocodingLocation output = result.getHits().get(0);
+            result = geocode.geocodeGet(key, inputAdress, language, limit, reverse, "", provider);
 
-            if(output.getCountry() != null) {
-                understoodAddress = output.getCountry().toString();
-            }
-            if(output.getCity() != null)
-            {
-                understoodAddress = understoodAddress + ", " + output.getCountry().toString();
-            }
-            if(output.getPostcode() != null)
-            {
-                understoodAddress = understoodAddress + " " + output.getPostcode().toString();
-            }
-            if(output.getStreet() != null)
-            {
-                understoodAddress = understoodAddress + ", " + output.getStreet().toString();
-            }
-            if(output.getHousenumber() != null)
-            {
-                understoodAddress = understoodAddress + " " + output.getHousenumber().toString();
-            }
         } catch (ApiException e) {
-            throw new IllegalArgumentException(e.getResponseBody());
+            if(e.getCause() instanceof UnknownHostException)
+                new IllegalArgumentException("couldnt connect to network.");
+            else
+                new IllegalArgumentException(e.getResponseBody());
+        }
+
+        GeocodingLocation output = result.getHits().get(0);
+
+        if(output.getCountry() != null) {
+            understoodAddress = output.getCountry().toString();
+        }
+        if(output.getCity() != null)
+        {
+            understoodAddress = understoodAddress + ", " + output.getCountry().toString();
+        }
+        if(output.getPostcode() != null)
+        {
+            understoodAddress = understoodAddress + " " + output.getPostcode().toString();
+        }
+        if(output.getStreet() != null)
+        {
+            understoodAddress = understoodAddress + ", " + output.getStreet().toString();
+        }
+        if(output.getHousenumber() != null)
+        {
+            understoodAddress = understoodAddress + " " + output.getHousenumber().toString();
         }
 
         return understoodAddress;

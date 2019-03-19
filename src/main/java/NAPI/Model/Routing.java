@@ -32,14 +32,14 @@ public class Routing {
 
     private void calcPath(List<String> points, String vehicle) {
         routing = new RoutingApi();
+        RouteResponse rsp = new RouteResponse();
 
         try {
-            RouteResponse rsp = routing.routeGet(points, false, key,
+            rsp = routing.routeGet(points, false, key,
                     "en", true, vehicle, true, true, Arrays.<String>asList(), false,
                     "fastest", null, null, null, null, null,
                     null, null, null, null, null, null, null);
 
-            path = rsp.getPaths().get(0);
         } catch (ApiException ex)
         {
             if(ex.getResponseBody().contains("Connection between locations not found"))
@@ -47,6 +47,7 @@ public class Routing {
             else
                 throw new IllegalArgumentException(ex.getResponseBody());
         }
+        path = rsp.getPaths().get(0);
     }
 
 
