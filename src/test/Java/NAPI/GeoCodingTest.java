@@ -2,7 +2,7 @@ package NAPI;
 
 import org.junit.jupiter.api.Test;
 
-public class GeoCodingTest {
+public class GeoCodingTest { /*
     @Test
     public void testConvertInput()
     {
@@ -14,4 +14,5 @@ public class GeoCodingTest {
     {
 
     }
+*/
 }
