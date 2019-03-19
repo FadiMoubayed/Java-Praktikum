@@ -5,6 +5,7 @@ import com.graphhopper.directions.api.client.api.GeocodingApi;
 import com.graphhopper.directions.api.client.model.GeocodingLocation;
 import com.graphhopper.directions.api.client.model.GeocodingResponse;
 
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,10 +56,14 @@ public class GeoCoding {
 
         }
 
-
         catch (ApiException e) {
-            System.err.println("Exception when calling GeocodingApi#geocodeGet");
-            e.printStackTrace();
+            if (e.getCause() instanceof UnknownHostException) {
+                System.err.println("Cannot resolve remote host. Please check your network connection.");
+            }
+            else {
+                System.err.println("Exception when calling GeocodingApi#geocodeGet");
+                e.printStackTrace();
+            }
         }
 
         return points;
