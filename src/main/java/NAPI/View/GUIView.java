@@ -22,7 +22,11 @@ public class GUIView{
     private JLabel destCheckLabel;
     private JTextArea outputTextArea;
     private JButton calculateButton;
-    private JCheckBox
+    private JLabel vehicleLabel;
+    private JRadioButton carRadio;
+    private JRadioButton footRadio;
+    private JRadioButton bikeRadio;
+    private ButtonGroup vehicleRadio;
     private JFrame frame;
 
 /*
@@ -52,9 +56,18 @@ public GUIView()
         destCheckButton = new JButton("check");
         destCheckLabel = new JLabel();
 
+        vehicleLabel = new JLabel("vehicle type");
+        carRadio = new JRadioButton("car");
+        footRadio = new JRadioButton("foot");
+        bikeRadio = new JRadioButton("bike");
+        vehicleRadio = new ButtonGroup();
+        vehicleRadio.add(carRadio);
+        vehicleRadio.add(bikeRadio);
+        vehicleRadio.add(footRadio);
+
         calculateButton = new JButton("calculate");
         outputTextArea = new JTextArea();
-        JScrollPane scrollpane = new JScrollPane(outputTextArea);
+        JScrollPane outputPane = new JScrollPane(outputTextArea);
 
 
 /*
@@ -83,18 +96,17 @@ public GUIView()
         gbc.gridy = 0;
         ctrlPane.add(startLabel, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipadx = 200;
+        gbc.gridwidth = 3;
         gbc.gridx = 1;
         gbc.gridy = 0;
         ctrlPane.add(startTextField,gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.ipadx = 0;
-        gbc.ipady = 0;
-        gbc.gridx = 2;
+        gbc.gridwidth = 1;
+        gbc.gridx = 4;
         gbc.gridy = 0;
         ctrlPane.add(startCheckButton, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 3;
+        gbc.gridx = 5;
         gbc.gridy = 0;
         ctrlPane.add(startCheckLabel, gbc);
 
@@ -103,42 +115,50 @@ public GUIView()
         gbc.gridy = 1;
         ctrlPane.add(destLabel, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 3;
         gbc.gridx = 1;
         gbc.gridy = 1;
         ctrlPane.add(destTextField,gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = 1;
         gbc.ipady = 0;
-        gbc.gridx = 2;
+        gbc.gridx = 4;
         gbc.gridy = 1;
         ctrlPane.add(destCheckButton, gbc);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridx = 3;
+        gbc.gridx = 5;
         gbc.gridy = 1;
         ctrlPane.add(destCheckLabel, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        ctrlPane.add(vehicleLabel, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 1;
         gbc.gridy = 2;
+        ctrlPane.add(carRadio, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        ctrlPane.add(footRadio, gbc);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        ctrlPane.add(bikeRadio, gbc);
+
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridx = 1;
+        gbc.gridy = 3;
         ctrlPane.add(calculateButton, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.gridwidth = 3;
+        gbc.gridwidth = 5;
         gbc.ipady = 300;
         gbc.gridx = 1;
-        gbc.gridy = 3;
-        ctrlPane.add(scrollpane,gbc);
+        gbc.gridy = 4;
+        ctrlPane.add(outputPane,gbc);
 
-
-        /*
-        JScrollPane tableScrollPane = new JScrollPane(table);
-        tableScrollPane.setPreferredSize(new Dimension(700, 182));
-        tableScrollPane.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Market Movers",
-                TitledBorder.CENTER, TitledBorder.TOP));
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, ctrlPane, tableScrollPane);
-        splitPane.setDividerLocation(35);
-        splitPane.setEnabled(false);
-*/
         // Display it all in a scrolling window and make the window appear
         JFrame frame = new JFrame("NAPI");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

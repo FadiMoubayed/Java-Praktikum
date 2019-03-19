@@ -18,6 +18,9 @@ public class GeoCoding {
     private String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
     private String language;
 
+    /**
+     *
+     */
     public GeoCoding()
     {
         geocode = new GeocodingApi();
