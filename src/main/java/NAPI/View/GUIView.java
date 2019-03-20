@@ -63,7 +63,7 @@ public GUIView()
         JScrollPane outputPane = new JScrollPane(outputTextArea);
 
         // Create guiController
-        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton,  this);
+        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton, outputTextArea, startCheckLabel, destCheckLabel);
         startCheckButton.addActionListener(guiController);
         destCheckButton.addActionListener(guiController);
         calculateButton.addActionListener(guiController);
@@ -171,27 +171,6 @@ public GUIView()
         frame.setVisible(true);
     }
 
-    public void updateLabels(String startAddress, String destAddress)
-    {
-        if(startAddress != "") {
-            startCheckLabel.setText(startAddress);
-        }
-        if(destAddress != "") {
-            destCheckLabel.setText(destAddress);
-        }
-    }
-    public void updateOutput(String time, String distance, List<String> instructions)
-    {
-        outputTextArea.setText("");
-        outputTextArea.setRows(instructions.size() + 3);
-        outputTextArea.append("Estimated time is: " + time + " minutes" + "\n");
-        outputTextArea.append("The total distance is: " + distance + " kilometers" + "\n" + "\n");
-        for(int i = 0; i<instructions.size();i++) {
-            outputTextArea.append(instructions.get(i) + "\n");
-        }
-    }
-    public void errorMessage(String message)
-    {
-        outputTextArea.setText(message);
-    }
+
+
 }
