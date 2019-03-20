@@ -23,14 +23,14 @@ public class GuiController implements ActionListener {
 
     private String vehicle;
 
-    public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, RequestHandler model, GUIView view) {
+    public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, GUIView view) {
         super();
         this.startTextField = startTextField;
         this.destTextField = destTextField;
         this.startCheckButton = startCheckButton;
         this.destCheckButton = destCheckButton;
         this.calculateButton = calculateButton;
-        this.model = model;
+        this.model = new RequestHandler();
         this.view = view;
 
         vehicle = "car";
