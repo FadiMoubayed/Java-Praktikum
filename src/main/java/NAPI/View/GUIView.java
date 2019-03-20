@@ -34,6 +34,9 @@ public GUIView()
     this.draw();
 }
 
+    /**
+     * This method creates the Gui with all its components using GridBagLayout
+     */
     public void draw() {
 
         // Create views swing UI components
@@ -170,7 +173,4 @@ public GUIView()
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
-
-
 }
