@@ -62,7 +62,7 @@ public class Routing {
     private void calcDist(){
         double routeDistance = path.getDistance()/1000;
         // Formatting the distance to display 2 digits
-        String routeDistanceString = String.format("%.0f", routeDistance);
+        String routeDistanceString = String.format("%.2f", routeDistance);
         distance = routeDistanceString;
     }
 
@@ -97,8 +97,8 @@ public class Routing {
         return distance;
     }
 
-    public long getTime() {
-        return time;
+    public String getTime() {
+        return Long.toString(time);
     }
 }
 

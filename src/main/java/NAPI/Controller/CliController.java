@@ -13,7 +13,7 @@ public class CliController {
         rh = new Model();
         rt = rh.calculateRoute(addresses, vehicle);
     }
-    public long calcTime()
+    public String calcTime()
     {
         return rt.getTime();
     }
