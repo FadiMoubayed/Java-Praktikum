@@ -48,15 +48,13 @@ public class GuiController implements ActionListener {
                 String startAddress = startTextField.getText() + "";
                 String destAddress = "";
                 try {
-                    String output = model.calculateLocation(startAddress);
-                    view.updateLabels(output, destAddress);
+                    view.updateLabels(model.calculateLocation(startAddress), destAddress);
+                    view.errorMessage("");
                 } catch (IllegalArgumentException ex) {
                     view.errorMessage("error while checking start address: \n" + ex.getMessage());
-                    startTextField.setText("");
                 } catch (Exception ex)
                 {
                     view.errorMessage("error while checking start address: \n" + "Please try a different address \n \n" + "type of error: \n" + ex.toString());
-                    startTextField.setText("");
                 }
             }
         }
@@ -71,13 +69,12 @@ public class GuiController implements ActionListener {
                 String destAddress = destTextField.getText() + "";
                 try {
                     view.updateLabels(startAddress, model.calculateLocation(destAddress));
+                    view.errorMessage("");
                 } catch (IllegalArgumentException ex) {
                     view.errorMessage("error while checking destination address: \n" + ex.getMessage());
-                    destTextField.setText("");
                 } catch (Exception ex)
                 {
-                    view.errorMessage("error while checking start address: \n" + "Please try a different address \n \n" + "type of error: \n" + ex.toString());
-                    startTextField.setText("");
+                    view.errorMessage("error while checking destination address: \n" + "Please try a different address \n \n" + "type of error: \n" + ex.toString());
                 }
             }
         }
@@ -101,7 +98,10 @@ public class GuiController implements ActionListener {
                     view.updateOutput(rt.getTime(), rt.getDistance(), rt.getRoute());
                 } catch (IllegalArgumentException ex) {
                     view.errorMessage("error while calculating: \n" + ex.getMessage());
-                } 
+                } catch (Exception ex)
+                {
+                    view.errorMessage("error while calculating: \n" + "Please try different addresses \n \n" + "type of error: \n" + ex.toString());
+                }
             }
         }
         else
