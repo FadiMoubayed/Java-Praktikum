@@ -40,43 +40,69 @@ public class GuiController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.startCheckButton)
         {
-            String startAddress = startTextField.getText() + "";
-            String destAddress = "";
-            try {
-                String output = model.calculateLocation(startAddress);
-                view.updateLabels(output, destAddress);
-            } catch (IllegalArgumentException ex)
+            if(startTextField.getText().isEmpty())
             {
-                view.errorMessage("error while checking start address: \n" + ex.getMessage());
-                startTextField.setText("");
+                view.errorMessage("error while checking start address: \n" + "please put in a starting address");
+            }
+            else {
+                String startAddress = startTextField.getText() + "";
+                String destAddress = "";
+                try {
+                    String output = model.calculateLocation(startAddress);
+                    view.updateLabels(output, destAddress);
+                } catch (IllegalArgumentException ex) {
+                    view.errorMessage("error while checking start address: \n" + ex.getMessage());
+                    startTextField.setText("");
+                } catch (Exception ex)
+                {
+                    view.errorMessage("error while checking start address: \n" + "Please try a different address \n \n" + "type of error: \n" + ex.toString());
+                    startTextField.setText("");
+                }
             }
         }
         else if(e.getSource() == this.destCheckButton)
         {
-            String startAddress = "";
-            String destAddress = destTextField.getText() + "";
-            try {
-                view.updateLabels(startAddress, model.calculateLocation(destAddress));
-            } catch (IllegalArgumentException ex)
+            if(destTextField.getText().isEmpty())
             {
-                view.errorMessage("error while checking destination address: \n" + ex.getMessage());
-                destTextField.setText("");
+                view.errorMessage("error while checking destination address: \n" + "please put in a destination address\n ");
+            }
+            else {
+                String startAddress = "";
+                String destAddress = destTextField.getText() + "";
+                try {
+                    view.updateLabels(startAddress, model.calculateLocation(destAddress));
+                } catch (IllegalArgumentException ex) {
+                    view.errorMessage("error while checking destination address: \n" + ex.getMessage());
+                    destTextField.setText("");
+                } catch (Exception ex)
+                {
+                    view.errorMessage("error while checking start address: \n" + "Please try a different address \n \n" + "type of error: \n" + ex.toString());
+                    startTextField.setText("");
+                }
             }
         }
         else if(e.getSource() == this.calculateButton)
         {
-            List<String> addresses = new ArrayList<String>();
-            addresses.add(startTextField.getText() + "");
-            addresses.add(destTextField.getText() + "");
-            Routing rt;
-            try {
-                rt  = model.calculateRoute(addresses, vehicle);
-                view.updateOutput(rt.getTime(),rt.getDistance(),rt.getRoute());
-            } catch (IllegalArgumentException ex)
+            if(startTextField.getText().isEmpty())
             {
-                view.errorMessage("error while calculating: \n" + ex.getMessage());
+                view.errorMessage("error while calculating: \n" + "please put in a starting address");
             }
-
+            else if(destTextField.getText().isEmpty())
+            {
+                view.errorMessage("error while calculating: \n" + "please put in a destination address");
+            }
+            else {
+                List<String> addresses = new ArrayList<String>();
+                addresses.add(startTextField.getText() + "");
+                addresses.add(destTextField.getText() + "");
+                Routing rt;
+                try {
+                    rt = model.calculateRoute(addresses, vehicle);
+                    view.updateOutput(rt.getTime(), rt.getDistance(), rt.getRoute());
+                } catch (IllegalArgumentException ex) {
+                    view.errorMessage("error while calculating: \n" + ex.getMessage());
+                } 
+            }
         }
         else
         {

@@ -62,7 +62,7 @@ public class Routing {
     private void calcDist(){
         double routeDistance = path.getDistance()/1000;
         // Formatting the distance to display 2 digits
-        String routeDistanceString = String.format("%.2f", routeDistance);
+        String routeDistanceString = String.format("%.0f", routeDistance);
         distance = routeDistanceString;
     }
 
@@ -80,14 +80,13 @@ public class Routing {
 
             for(int i=0; i<path.getInstructions().size(); i++) {
                 if (path.getInstructions().get(i).getText().startsWith("Continue")) {
-                    instructions.add(path.getInstructions().get(i).getText() + " for " + path.getInstructions().get(i).getDistance() + " meters");
+                    instructions.add(path.getInstructions().get(i).getText() + " for " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
                 } else if (path.getInstructions().get(i).getText().equals("Arrive at destination")) {
                     instructions.add(path.getInstructions().get(i).getText());
                 } else if (path.getInstructions().get(i).getText().startsWith("Keep")) {
-                    instructions.add(path.getInstructions().get(i).getText() + " for " + path.getInstructions().get(i).getDistance() + " meters");
+                    instructions.add(path.getInstructions().get(i).getText() + " for " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
                 } else {
-                    instructions.add(" In " + path.getInstructions().get(i).getDistance() + " meters " + path.getInstructions().get(i).getText());
-                    //instructions.add(path.getInstructions().get(i).getText());
+                    instructions.add(" In " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters " + path.getInstructions().get(i).getText());
                 }
             }
 

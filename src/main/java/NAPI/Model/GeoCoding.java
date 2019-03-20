@@ -40,18 +40,10 @@ public class GeoCoding {
 
         List<String> points = new ArrayList();
         for(int i = 0; i<addresses.size();i++) {
+            GeocodingResponse result = new GeocodingResponse();
             try {
 
-                GeocodingResponse result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
-
-                //Getting latitude and longitude of the starting point
-                double lat = result.getHits().get(0).getPoint().getLat();
-                double lng = result.getHits().get(0).getPoint().getLng();
-
-                String onePoint = Double.toString(lat) + "," + Double.toString(lng);
-
-                points.add(onePoint);
-
+                result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
 
             } catch (ApiException e) {
                 if(e.getCause() instanceof UnknownHostException)
@@ -59,6 +51,15 @@ public class GeoCoding {
                 else
                     new IllegalArgumentException(e.getResponseBody());
             }
+            //Getting latitude and longitude of the starting point
+            double lat = result.getHits().get(0).getPoint().getLat();
+            double lng = result.getHits().get(0).getPoint().getLng();
+
+            String onePoint = Double.toString(lat) + "," + Double.toString(lng);
+
+            points.add(onePoint);
+
+
         }
 
         return points;
