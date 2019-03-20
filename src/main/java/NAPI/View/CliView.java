@@ -18,20 +18,27 @@ public class CliView{
     public void draw() {
         List<String> adresses = new ArrayList<String>();
         Scanner sn = new Scanner(System.in);
-        System.out.print("Please enter your starting address: ");
-        adresses.add(sn.nextLine());
+        String startingAddress = "";
+        while (startingAddress.isEmpty()) {
+            System.out.print("Please enter your starting address: ");
+            startingAddress = sn.nextLine();
+        }
+        adresses.add(startingAddress);
 
-        System.out.print("Please enter your destination address: ");
-        adresses.add(sn.nextLine());
+
+        String destinationAddress = "";
+        while (destinationAddress.isEmpty()) {
+            System.out.print("Please enter your destination address: ");
+            destinationAddress = sn.nextLine();
+        }
+        adresses.add(destinationAddress);
 
         String vehicle = "";
-        while (true) {
+        // check whether vehicle input matches with the supported vehicles
+        while (!vehicle.equals("car") && !vehicle.equals("truck") && !vehicle.equals("scooter") && !vehicle.equals("foot") && !vehicle.equals("hike") && !vehicle.equals("bike")) {
             System.out.println("Please enter the type of your vehicle: ");
             System.out.println("car, truck, scooter, foot, hike, bike ");
             vehicle = sn.nextLine();
-            if (vehicle.equals("car") || vehicle.equals("truck") || vehicle.equals("scooter") || vehicle.equals("foot") || vehicle.equals("hike") || vehicle.equals("bike")) {
-                break;
-            }
         }
 
 
