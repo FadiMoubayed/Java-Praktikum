@@ -180,7 +180,7 @@ public GUIView()
             destCheckLabel.setText(destAddress);
         }
     }
-    public void updateOutput(long time, String distance, List<String> instructions)
+    public void updateOutput(String time, String distance, List<String> instructions)
     {
         outputTextArea.setText("");
         outputTextArea.setRows(instructions.size() + 3);
