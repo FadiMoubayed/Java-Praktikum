@@ -1,4 +1,4 @@
-package NAPI;
+package NAPI.Model;
 
 import NAPI.Model.Routing;
 import org.hamcrest.CoreMatchers;
@@ -9,9 +9,9 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import java.util.List;
 import java.util.ArrayList;
 
-public class RoutingTest {
+public class RoutingTest{
     @Test
-    public void testCalcPath()
+    public void testGetters()
     {
         List<String> points = new ArrayList();
         points.add("51.969405, 7.595812");
@@ -20,7 +20,7 @@ public class RoutingTest {
         List<String> output = new ArrayList();
         output.add("Arrive at destination");
         assertThat(rt.getRoute(),is(equalTo(output)));
-        assertThat(rt.getDistance(), is(CoreMatchers.equalTo("0,00")));
+        assertThat(rt.getDistance(), is(CoreMatchers.equalTo("0")));
         assertThat(rt.getTime(), is(equalTo((long)0)));
     }
 }

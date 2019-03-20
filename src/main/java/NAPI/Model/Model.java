@@ -23,12 +23,7 @@ public class Model {
 
         GeoCoding gc = new GeoCoding();
         List<String> coordinates = null;
-        try {
-            coordinates = gc.convertAddressToCoordinates(adresses);
-        } catch (IllegalArgumentException e)
-        {
-            throw e;
-        }
+        coordinates = gc.convertAddressToCoordinates(adresses);
         Routing rt = new Routing(coordinates, vehicle);
         return rt;
     }
