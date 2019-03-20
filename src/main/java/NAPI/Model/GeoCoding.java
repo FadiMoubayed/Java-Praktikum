@@ -41,12 +41,6 @@ public class GeoCoding {
         List<String> points = new ArrayList();
         for(int i = 0; i<addresses.size();i++) {
             GeocodingResponse result = new GeocodingResponse();
-            /*
-            if(addresses.get(i).isEmpty())
-            {
-                throw new IllegalArgumentException("address no." + (i+1) + " is empty");
-            }
-            else {*/
                 try {
 
                     result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
@@ -64,7 +58,6 @@ public class GeoCoding {
                 String onePoint = Double.toString(lat) + "," + Double.toString(lng);
 
                 points.add(onePoint);
-            //}
         }
 
         return points;
@@ -91,25 +84,55 @@ public class GeoCoding {
 
         GeocodingLocation output = result.getHits().get(0);
 
-        if(output.getCountry() != null) {
-            understoodAddress = output.getCountry().toString();
-        }
-        if(output.getCity() != null)
+        if(output.getCountry() != null)
         {
-            understoodAddress = understoodAddress + ", " + output.getCountry().toString();
+            understoodAddress = output.getCountry();
+            if(output.getCity() != null)
+            {
+                understoodAddress = understoodAddress + ", " + output.getCountry();
+                if(output.getPostcode() != null)
+                {
+                    understoodAddress = understoodAddress + ", " + output.getPostcode();
+                    if(output.getCity() != null)
+                    {
+                        understoodAddress = understoodAddress + " " + output.getCity();
+                        if (output.getStreet() != null)
+                        {
+                            understoodAddress = understoodAddress + ", " + output.getStreet();
+                            if (output.getHousenumber() != null)
+                            {
+                                understoodAddress = understoodAddress + " " + output.getHousenumber();
+                            }
+                            else
+                            {
+                                understoodAddress = understoodAddress + " " + output.getName();
+                            }
+                        }
+                        else
+                        {
+                            understoodAddress = understoodAddress + ", " + output.getName();
+                        }
+                    }
+                    else
+                    {
+                        understoodAddress = understoodAddress + " " + output.getName();
+                    }
+                }
+                else
+                {
+                    understoodAddress = understoodAddress + ", " + output.getName();
+                }
+            }
+            else
+            {
+                understoodAddress = understoodAddress + ", " + output.getName();
+            }
         }
-        if(output.getPostcode() != null)
+        else
         {
-            understoodAddress = understoodAddress + " " + output.getPostcode().toString();
+            understoodAddress = understoodAddress + " " + output.getName();
         }
-        if(output.getStreet() != null)
-        {
-            understoodAddress = understoodAddress + ", " + output.getStreet().toString();
-        }
-        if(output.getHousenumber() != null)
-        {
-            understoodAddress = understoodAddress + " " + output.getHousenumber().toString();
-        }
+
 
         return understoodAddress;
     }

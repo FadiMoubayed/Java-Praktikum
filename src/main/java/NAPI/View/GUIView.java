@@ -17,7 +17,9 @@ public class GUIView{
     private JLabel startLabel;
     private JLabel destLabel;
     private JLabel startCheckLabel;
+    private JComboBox startComboBox;
     private JLabel destCheckLabel;
+    private JComboBox destComboBox;
     private JTextArea outputTextArea;
     private JButton calculateButton;
     private JLabel vehicleLabel;
@@ -44,12 +46,14 @@ public GUIView()
         startTextField = new JTextField(26);
         startCheckButton = new JButton("check");
         startCheckLabel = new JLabel();
-
+        startComboBox = new JComboBox();
 
         destLabel = new JLabel("dest address: ");
         destTextField = new JTextField();
         destCheckButton = new JButton("check");
         destCheckLabel = new JLabel();
+        destComboBox = new JComboBox();
+
 
         vehicleLabel = new JLabel("vehicle type: ");
         carRadio = new JRadioButton("car", true);
@@ -66,7 +70,7 @@ public GUIView()
         JScrollPane outputPane = new JScrollPane(outputTextArea);
 
         // Create guiController
-        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton, outputTextArea, startCheckLabel, destCheckLabel);
+        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton, outputTextArea, startComboBox, destComboBox, startCheckLabel, destCheckLabel);
         startCheckButton.addActionListener(guiController);
         destCheckButton.addActionListener(guiController);
         calculateButton.addActionListener(guiController);
@@ -101,7 +105,7 @@ public GUIView()
         gbc.ipadx = 100;
         gbc.gridx = 5;
         gbc.gridy = 0;
-        ctrlPane.add(startCheckLabel, gbc);
+        ctrlPane.add(startComboBox, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipadx = 0;
@@ -122,7 +126,7 @@ public GUIView()
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 5;
         gbc.gridy = 1;
-        ctrlPane.add(destCheckLabel, gbc);
+        ctrlPane.add(destComboBox, gbc);
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;

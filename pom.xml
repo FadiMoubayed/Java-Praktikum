@@ -20,16 +20,12 @@
     </build>
 
     <dependencies>
-
-
         <!-- https://mvnrepository.com/artifact/com.graphhopper/graphhopper-core -->
         <dependency>
             <groupId>com.graphhopper</groupId>
             <artifactId>graphhopper</artifactId>
             <version>0.3</version>
         </dependency>
-
-
         <!-- https://mvnrepository.com/artifact/com.graphhopper/directions-api-client -->
         <dependency>
             <groupId>com.graphhopper</groupId>
@@ -47,18 +43,6 @@
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.4.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.container</groupId>
-            <artifactId>arquillian-container-test-api</artifactId>
-            <version>1.4.1.Final</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-core</artifactId>
-            <version>1.4.1.Final</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
