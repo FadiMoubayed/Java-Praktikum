@@ -1,6 +1,6 @@
 package NAPI.Controller;
 
-import NAPI.Model.RequestHandler;
+import NAPI.Model.Model;
 import NAPI.Model.Routing;
 import NAPI.View.GUIView;
 
@@ -18,7 +18,7 @@ public class GuiController implements ActionListener {
     private JButton startCheckButton;
     private JButton destCheckButton;
     private JButton calculateButton;
-    private RequestHandler model;
+    private Model model;
     private GUIView view;
 
     private String vehicle;
@@ -30,7 +30,7 @@ public class GuiController implements ActionListener {
         this.startCheckButton = startCheckButton;
         this.destCheckButton = destCheckButton;
         this.calculateButton = calculateButton;
-        this.model = new RequestHandler();
+        this.model = new Model();
         this.view = view;
 
         vehicle = "car";

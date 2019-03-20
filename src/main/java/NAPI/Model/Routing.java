@@ -23,7 +23,7 @@ public class Routing {
     private String distance;
     private long time;
 
-    public Routing(List<String> points, String vehicle)
+    protected Routing(List<String> points, String vehicle)
     {
         calcPath(points, vehicle);
         calcTime();

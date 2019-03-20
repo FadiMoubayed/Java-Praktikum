@@ -1,16 +1,16 @@
 package NAPI.Controller;
 
-import NAPI.Model.RequestHandler;
+import NAPI.Model.Model;
 import NAPI.Model.Routing;
 
 import java.util.List;
 
 public class CliController {
-    RequestHandler rh;
+    Model rh;
     Routing rt;
     public CliController(List<String> addresses, String vehicle)
     {
-        rh = new RequestHandler();
+        rh = new Model();
         rt = rh.calculateRoute(addresses, vehicle);
     }
     public long calcTime()

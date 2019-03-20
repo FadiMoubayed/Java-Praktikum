@@ -22,7 +22,7 @@ public class GeoCoding {
     /**
      *
      */
-    public GeoCoding()
+    protected GeoCoding()
     {
         geocode = new GeocodingApi();
         language = "en";
@@ -32,7 +32,7 @@ public class GeoCoding {
      * @param addresses
      * @return List of coordinates (as Strings)
      */
-    public List<String> convertAddressToCoordinates(List<String> addresses){
+    protected List<String> convertAddressToCoordinates(List<String> addresses){
 
         Integer limit = 1; // Integer | Specify the maximum number of returned results
         Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
@@ -63,7 +63,7 @@ public class GeoCoding {
         return points;
     }
 
-    public String understandInputAddress(String inputAdress)
+    protected String understandInputAddress(String inputAdress)
     {
         Integer limit = 1; // Integer | Specify the maximum number of returned results
         Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter

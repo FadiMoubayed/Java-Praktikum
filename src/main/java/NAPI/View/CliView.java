@@ -1,8 +1,6 @@
 package NAPI.View;
 
 import NAPI.Controller.CliController;
-import NAPI.Model.RequestHandler;
-import NAPI.Model.Routing;
 
 import java.util.ArrayList;
 import java.util.List;

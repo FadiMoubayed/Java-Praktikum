@@ -1,6 +1,6 @@
 package NAPI;
 
-import NAPI.Model.RequestHandler;
+import NAPI.Model.Model;
 import NAPI.Model.Routing;
 import org.junit.jupiter.api.Test;
 
@@ -11,12 +11,12 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsEqual.equalTo;
 
-public class RequestHandlerTest {
+public class ModelTest {
     @Test
     public void testCalculateRoute()
     {
 
-        RequestHandler rh = new RequestHandler();
+        Model rh = new Model();
         List<String> adresses = new ArrayList();
         adresses.add("Muenster ifgi");
         adresses.add("Muenster ifgi");
