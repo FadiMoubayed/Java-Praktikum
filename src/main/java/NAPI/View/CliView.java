@@ -6,6 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * This class views routing information and accepts input
+ * via the command line interface (CLI). Input variables
+ * are:
+ *
+ * - starting address: enter the starting address here
+ * - destination address: enter the destination address
+ * - vehicle: enter your vehicle here
+ *
+ * When asking for an origin or a destination address it
+ * is impossible to enter an empty string. There are
+ * several vehicles supported by the Graphhopper API.
+ * This class allows only six of them (car, truck,
+ * scooter, foot, hike, bike) but they cover nearly all
+ * use cases.
+ *
+ * The output provides the total estimated time, the
+ * total distance in kilometers and the routing
+ * instructions.
+ */
+
 public class CliView{
 
     public CliView()
