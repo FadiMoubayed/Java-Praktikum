@@ -41,23 +41,30 @@ public class GeoCoding {
         List<String> points = new ArrayList();
         for(int i = 0; i<addresses.size();i++) {
             GeocodingResponse result = new GeocodingResponse();
-            try {
-
-                result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
-
-            } catch (ApiException e) {
-                if(e.getCause() instanceof UnknownHostException)
-                    new IllegalArgumentException("couldnt connect to network.");
-                else
-                    new IllegalArgumentException(e.getResponseBody());
+            /*
+            if(addresses.get(i).isEmpty())
+            {
+                throw new IllegalArgumentException("address no." + (i+1) + " is empty");
             }
-            //Getting latitude and longitude of the starting point
-            double lat = result.getHits().get(0).getPoint().getLat();
-            double lng = result.getHits().get(0).getPoint().getLng();
+            else {*/
+                try {
 
-            String onePoint = Double.toString(lat) + "," + Double.toString(lng);
+                    result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
 
-            points.add(onePoint);
+                } catch (ApiException e) {
+                    if (e.getCause() instanceof UnknownHostException)
+                        throw new IllegalArgumentException("couldnt connect to network.");
+                    else
+                        throw new IllegalArgumentException(e.getResponseBody());
+                }
+                //Getting latitude and longitude of the starting point
+                double lat = result.getHits().get(0).getPoint().getLat();
+                double lng = result.getHits().get(0).getPoint().getLng();
+
+                String onePoint = Double.toString(lat) + "," + Double.toString(lng);
+
+                points.add(onePoint);
+            //}
         }
 
         return points;
@@ -77,9 +84,9 @@ public class GeoCoding {
 
         } catch (ApiException e) {
             if(e.getCause() instanceof UnknownHostException)
-                new IllegalArgumentException("couldnt connect to network.");
+                throw new IllegalArgumentException("couldnt connect to network.");
             else
-                new IllegalArgumentException(e.getResponseBody());
+                throw new IllegalArgumentException(e.getResponseBody());
         }
 
         GeocodingLocation output = result.getHits().get(0);

@@ -1,4 +1,4 @@
-package NAPI;
+package NAPI.Model;
 
 import NAPI.Model.Model;
 import NAPI.Model.Routing;
@@ -15,13 +15,17 @@ public class ModelTest {
     @Test
     public void testCalculateRoute()
     {
-
-        Model rh = new Model();
+        Model md = new Model();
         List<String> adresses = new ArrayList();
         adresses.add("Muenster ifgi");
         adresses.add("Muenster ifgi");
-        Routing rt = rh.calculateRoute(adresses,"car");
-        assertThat(rt.getRoute().size(), is(equalTo(1)));
+        assertThat(md.calculateRoute(adresses,"car").getRoute().size(), is(equalTo(1)));
+    }
 
+    @Test
+    public void testCalculateLocation()
+    {
+        Model md = new Model();
+        assertThat(md.calculateLocation("Lippstadt"), is(equalTo("Germany")));
     }
 }
