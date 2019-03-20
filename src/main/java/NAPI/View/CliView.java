@@ -1,6 +1,8 @@
 package NAPI.View;
 
 import NAPI.Controller.CliController;
+import NAPI.Model.RequestHandler;
+import NAPI.Model.Routing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,16 +18,20 @@ public class CliView{
     public void draw() {
         List<String> adresses = new ArrayList<String>();
         Scanner sn = new Scanner(System.in);
+        String startingAddress = "";
+        while (startingAddress.isEmpty()) {
+            System.out.print("Please enter your starting address: ");
+            startingAddress = sn.nextLine();
+        }
+        adresses.add(startingAddress);
 
-        //String originInput = "";
 
-        System.out.print("Please enter your starting address: ");
-        adresses.add(sn.nextLine());
-
-
-        //String destinationInput;
-        System.out.print("Please enter your destination address: ");
-        adresses.add(sn.nextLine());
+        String destinationAddress = "";
+        while (destinationAddress.isEmpty()) {
+            System.out.print("Please enter your destination address: ");
+            destinationAddress = sn.nextLine();
+        }
+        adresses.add(destinationAddress);
 
         String vehicle = "";
         // check whether vehicle input matches with the supported vehicles

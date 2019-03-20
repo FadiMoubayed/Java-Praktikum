@@ -23,8 +23,13 @@ public class RequestHandler {
 
         GeoCoding gc = new GeoCoding();
         List<String> coordinates = null;
-        coordinates = gc.convertAddressToCoordinates(adresses);
-        Routing rt = new Routing(coordinates,vehicle);
+        try {
+            coordinates = gc.convertAddressToCoordinates(adresses);
+        } catch (IllegalArgumentException e)
+        {
+            throw e;
+        }
+        Routing rt = new Routing(coordinates, vehicle);
         return rt;
     }
     public String calculateLocation(String inputAdress)

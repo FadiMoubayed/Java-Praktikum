@@ -1,14 +1,8 @@
 package NAPI;
 
-import NAPI.Model.RequestHandler;
-import NAPI. Model.GeoCoding;
-import NAPI.Model.Routing;
 import NAPI.View.CliView;
 import NAPI.View.GUIView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * This is the runner class for our NavigationApi
@@ -18,6 +12,7 @@ public class Runner {
     {
         GUIView gv = new GUIView();
         //CliView cv = new CliView();
+
     }
 
 

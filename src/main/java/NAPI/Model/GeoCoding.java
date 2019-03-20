@@ -39,31 +39,25 @@ public class GeoCoding {
         String provider = "default"; // String | Can be either, default, nominatim, opencagedata
 
         List<String> points = new ArrayList();
+        for(int i = 0; i<addresses.size();i++) {
+            GeocodingResponse result = new GeocodingResponse();
+            try {
 
-        try {
-            for(int i = 0; i<addresses.size();i++) {
-                GeocodingResponse result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
+                result = geocode.geocodeGet(key, addresses.get(i), language, limit, reverse, "", provider);
 
-                //Getting latitude and longitude of the starting point
-                double lat = result.getHits().get(0).getPoint().getLat();
-                double lng = result.getHits().get(0).getPoint().getLng();
-
-                String onePoint = Double.toString(lat) + "," + Double.toString(lng);
-
-                points.add(onePoint);
+            } catch (ApiException e) {
+                if(e.getCause() instanceof UnknownHostException)
+                    new IllegalArgumentException("couldnt connect to network.");
+                else
+                    new IllegalArgumentException(e.getResponseBody());
             }
+            //Getting latitude and longitude of the starting point
+            double lat = result.getHits().get(0).getPoint().getLat();
+            double lng = result.getHits().get(0).getPoint().getLng();
 
+            String onePoint = Double.toString(lat) + "," + Double.toString(lng);
 
-        }
-
-        catch (ApiException e) {
-            if (e.getCause() instanceof UnknownHostException) {
-                System.err.println("Cannot resolve remote host. Please check your network connection.");
-            }
-            else {
-                System.err.println("Exception when calling GeocodingApi#geocodeGet");
-                e.printStackTrace();
-            }
+            points.add(onePoint);
         }
 
         return points;
@@ -77,32 +71,37 @@ public class GeoCoding {
 
 
         String understoodAddress = "";
+        GeocodingResponse result = new GeocodingResponse();
         try {
-            GeocodingResponse result = geocode.geocodeGet(key, inputAdress, language, limit, reverse, "", provider);
-            GeocodingLocation output = result.getHits().get(0);
+            result = geocode.geocodeGet(key, inputAdress, language, limit, reverse, "", provider);
 
-            if(output.getCountry() != null) {
-                understoodAddress = output.getCountry().toString();
-            }
-            if(output.getCity() != null)
-            {
-                understoodAddress = understoodAddress + ", " + output.getCountry().toString();
-            }
-            if(output.getPostcode() != null)
-            {
-                understoodAddress = understoodAddress + " " + output.getPostcode().toString();
-            }
-            if(output.getStreet() != null)
-            {
-                understoodAddress = understoodAddress + ", " + output.getStreet().toString();
-            }
-            if(output.getHousenumber() != null)
-            {
-                understoodAddress = understoodAddress + " " + output.getHousenumber().toString();
-            }
         } catch (ApiException e) {
-            System.err.println("Exception when calling GeocodingApi#geocodeGet");
-            e.printStackTrace();
+            if(e.getCause() instanceof UnknownHostException)
+                new IllegalArgumentException("couldnt connect to network.");
+            else
+                new IllegalArgumentException(e.getResponseBody());
+        }
+
+        GeocodingLocation output = result.getHits().get(0);
+
+        if(output.getCountry() != null) {
+            understoodAddress = output.getCountry().toString();
+        }
+        if(output.getCity() != null)
+        {
+            understoodAddress = understoodAddress + ", " + output.getCountry().toString();
+        }
+        if(output.getPostcode() != null)
+        {
+            understoodAddress = understoodAddress + " " + output.getPostcode().toString();
+        }
+        if(output.getStreet() != null)
+        {
+            understoodAddress = understoodAddress + ", " + output.getStreet().toString();
+        }
+        if(output.getHousenumber() != null)
+        {
+            understoodAddress = understoodAddress + " " + output.getHousenumber().toString();
         }
 
         return understoodAddress;

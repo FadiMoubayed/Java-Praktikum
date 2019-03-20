@@ -64,12 +64,8 @@ public GUIView()
         outputTextArea = new JTextArea();
         JScrollPane outputPane = new JScrollPane(outputTextArea);
 
-        // Create table model
-        RequestHandler model = new RequestHandler();
-        //table.setModel(model);
-
         // Create guiController
-        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton, model, this);
+        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton,  this);
         startCheckButton.addActionListener(guiController);
         destCheckButton.addActionListener(guiController);
         calculateButton.addActionListener(guiController);

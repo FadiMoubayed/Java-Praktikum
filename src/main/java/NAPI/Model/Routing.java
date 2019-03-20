@@ -25,7 +25,6 @@ public class Routing {
 
     public Routing(List<String> points, String vehicle)
     {
-        // To-do: test if the input is correct
         calcPath(points, vehicle);
         calcTime();
         calcDist();
@@ -33,28 +32,22 @@ public class Routing {
 
     private void calcPath(List<String> points, String vehicle) {
         routing = new RoutingApi();
+        RouteResponse rsp = new RouteResponse();
 
         try {
-            RouteResponse rsp = routing.routeGet(points, false, key,
+            rsp = routing.routeGet(points, false, key,
                     "en", true, vehicle, true, true, Arrays.<String>asList(), false,
                     "fastest", null, null, null, null, null,
                     null, null, null, null, null, null, null);
 
-            path = rsp.getPaths().get(0);
         } catch (ApiException ex)
         {
-            //System.out.println(ex.getResponseBody());
-            if (ex.getResponseBody().contains("Connection between locations not found")){
-                System.out.println("There is no connection between the two locations. This program terminates here.");
-                throw new IllegalArgumentException(ex);
-            }
-            else {
-                System.out.println(ex.getResponseBody());
-                ex.printStackTrace();
-                throw new RuntimeException(ex);
-            }
-
+            if(ex.getResponseBody().contains("Connection between locations not found"))
+                throw new IllegalArgumentException("Connection between locations not found");
+            else
+                throw new IllegalArgumentException(ex.getResponseBody());
         }
+        path = rsp.getPaths().get(0);
     }
 
 
@@ -69,7 +62,7 @@ public class Routing {
     private void calcDist(){
         double routeDistance = path.getDistance()/1000;
         // Formatting the distance to display 2 digits
-        String routeDistanceString = String.format("%.2f", routeDistance);
+        String routeDistanceString = String.format("%.0f", routeDistance);
         distance = routeDistanceString;
     }
 
@@ -87,14 +80,13 @@ public class Routing {
 
             for(int i=0; i<path.getInstructions().size(); i++) {
                 if (path.getInstructions().get(i).getText().startsWith("Continue")) {
-                    instructions.add(path.getInstructions().get(i).getText() + " for " + path.getInstructions().get(i).getDistance() + " meters");
+                    instructions.add(path.getInstructions().get(i).getText() + " for " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
                 } else if (path.getInstructions().get(i).getText().equals("Arrive at destination")) {
                     instructions.add(path.getInstructions().get(i).getText());
                 } else if (path.getInstructions().get(i).getText().startsWith("Keep")) {
-                    instructions.add(path.getInstructions().get(i).getText() + " for " + path.getInstructions().get(i).getDistance() + " meters");
+                    instructions.add(path.getInstructions().get(i).getText() + " for " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
                 } else {
-                    instructions.add(" In " + path.getInstructions().get(i).getDistance() + " meters " + path.getInstructions().get(i).getText());
-                    //instructions.add(path.getInstructions().get(i).getText());
+                    instructions.add(" In " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters " + path.getInstructions().get(i).getText());
                 }
             }
 
