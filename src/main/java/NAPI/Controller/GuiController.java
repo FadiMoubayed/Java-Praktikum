@@ -25,6 +25,19 @@ public class GuiController implements ActionListener {
 
     private String vehicle;
 
+    /**
+     * This is the constructor.
+     * It imports some components from the GuiView, creates a new instance of the model
+     * and sets the default vehicle to "car"
+     * @param startTextField
+     * @param destTextField
+     * @param startCheckButton
+     * @param destCheckButton
+     * @param calculateButton
+     * @param outputTextArea
+     * @param startCheckLabel
+     * @param destCheckLabel
+     */
     public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, JTextArea outputTextArea, JLabel startCheckLabel, JLabel destCheckLabel) {
         super();
         this.startTextField = startTextField;
@@ -40,6 +53,10 @@ public class GuiController implements ActionListener {
         vehicle = "car";
     }
 
+    /**
+     * This method listens to and processes the user input
+     * @param e
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == this.startCheckButton)
@@ -110,6 +127,11 @@ public class GuiController implements ActionListener {
         }
     }
 
+    /**
+     * This method updates the CheckLabels to display the specified address
+     * @param startAddress
+     * @param destAddress
+     */
     public void updateLabels(String startAddress, String destAddress)
     {
         if(startAddress != "") {
@@ -120,7 +142,14 @@ public class GuiController implements ActionListener {
         }
     }
 
-    public void updateOutput(long time, String distance, List<String> instructions)
+    /**
+     * This method updates the outputTextArea to display the estimated time, the estimated travel-distance
+     * and the route instructions.
+     * @param time
+     * @param distance
+     * @param instructions
+     */
+    public void updateOutput(String time, String distance, List<String> instructions)
     {
         outputTextArea.setText("");
         outputTextArea.setRows(instructions.size() + 3);
@@ -131,6 +160,10 @@ public class GuiController implements ActionListener {
         }
     }
 
+    /**
+     * This method displays error messages in the outputTextArea
+     * @param message
+     */
     public void errorMessage(String message)
     {
         outputTextArea.setText(message);
