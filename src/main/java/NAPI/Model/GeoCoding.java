@@ -58,8 +58,6 @@ public class GeoCoding {
             String onePoint = Double.toString(lat) + "," + Double.toString(lng);
 
             points.add(onePoint);
-
-
         }
 
         return points;

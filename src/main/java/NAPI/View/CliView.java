@@ -25,6 +25,7 @@ public class CliView{
         }
         adresses.add(startingAddress);
 
+
         String destinationAddress = "";
         while (destinationAddress.isEmpty()) {
             System.out.print("Please enter your destination address: ");
@@ -33,6 +34,7 @@ public class CliView{
         adresses.add(destinationAddress);
 
         String vehicle = "";
+        // check whether vehicle input matches with the supported vehicles
         while (!vehicle.equals("car") && !vehicle.equals("truck") && !vehicle.equals("scooter") && !vehicle.equals("foot") && !vehicle.equals("hike") && !vehicle.equals("bike")) {
             System.out.println("Please enter the type of your vehicle: ");
             System.out.println("car, truck, scooter, foot, hike, bike ");
