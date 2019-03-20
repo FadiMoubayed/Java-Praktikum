@@ -29,7 +29,7 @@ public class GeoCoding {
     }
     /**
      * This methods converts a number of adresses into coordinates
-     * @param addresses
+     * @param addresses start and destination strings
      * @return List of coordinates (as Strings)
      */
     protected List<String> convertAddressToCoordinates(List<String> addresses){
@@ -84,7 +84,7 @@ public class GeoCoding {
 
         } catch (ApiException e) {
             if(e.getCause() instanceof UnknownHostException)
-                throw new IllegalArgumentException("couldnt connect to network.");
+                throw new IllegalArgumentException("Could not connect to network.");
             else
                 throw new IllegalArgumentException(e.getResponseBody());
         }
