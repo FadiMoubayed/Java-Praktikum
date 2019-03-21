@@ -38,7 +38,7 @@ public class GeoCoding {
         Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
         String provider = "default"; // String | Can be either, default, nominatim, opencagedata
 
-        List<String> points = new ArrayList();
+        List<String> points = new ArrayList<>();
         for(int i = 0; i<addresses.size();i++) {
             GeocodingResponse result = new GeocodingResponse();
                 try {
@@ -63,14 +63,12 @@ public class GeoCoding {
         return points;
     }
 
-    protected String understandInputAddress(String inputAdress)
+    protected List<String> understandInputAddresses(String inputAdress)
     {
-        Integer limit = 1; // Integer | Specify the maximum number of returned results
+        Integer limit = 3; // Integer | Specify the maximum number of returned results
         Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
         String provider = "default"; // String | Can be either, default, nominatim, opencagedata
 
-
-        String understoodAddress = "";
         GeocodingResponse result = new GeocodingResponse();
         try {
             result = geocode.geocodeGet(key, inputAdress, language, limit, reverse, "", provider);
@@ -82,59 +80,44 @@ public class GeoCoding {
                 throw new IllegalArgumentException(e.getResponseBody());
         }
 
-        GeocodingLocation output = result.getHits().get(0);
-
-        if(output.getCountry() != null)
-        {
-            understoodAddress = output.getCountry();
-            if(output.getCity() != null)
-            {
-                understoodAddress = understoodAddress + ", " + output.getCountry();
-                if(output.getPostcode() != null)
-                {
-                    understoodAddress = understoodAddress + ", " + output.getPostcode();
-                    if(output.getCity() != null)
-                    {
-                        understoodAddress = understoodAddress + " " + output.getCity();
-                        if (output.getStreet() != null)
-                        {
-                            understoodAddress = understoodAddress + ", " + output.getStreet();
-                            if (output.getHousenumber() != null)
-                            {
-                                understoodAddress = understoodAddress + " " + output.getHousenumber();
+        List<String> addresses = new ArrayList<>();
+        for(int i = 0; i<limit; i++) {
+            String understoodAddress = "";
+            GeocodingLocation output = result.getHits().get(i);
+            if (output.getCountry() != null) {
+                understoodAddress = output.getCountry();
+                if (output.getCity() != null) {
+                    understoodAddress = understoodAddress + ", " + output.getCountry();
+                    if (output.getPostcode() != null) {
+                        understoodAddress = understoodAddress + ", " + output.getPostcode();
+                        if (output.getCity() != null) {
+                            understoodAddress = understoodAddress + " " + output.getCity();
+                            if (output.getStreet() != null) {
+                                understoodAddress = understoodAddress + ", " + output.getStreet();
+                                if (output.getHousenumber() != null) {
+                                    understoodAddress = understoodAddress + " " + output.getHousenumber();
+                                } else {
+                                    understoodAddress = understoodAddress + " " + output.getName();
+                                }
+                            } else {
+                                understoodAddress = understoodAddress + ", " + output.getName();
                             }
-                            else
-                            {
-                                understoodAddress = understoodAddress + " " + output.getName();
-                            }
+                        } else {
+                            understoodAddress = understoodAddress + " " + output.getName();
                         }
-                        else
-                        {
-                            understoodAddress = understoodAddress + ", " + output.getName();
-                        }
+                    } else {
+                        understoodAddress = understoodAddress + ", " + output.getName();
                     }
-                    else
-                    {
-                        understoodAddress = understoodAddress + " " + output.getName();
-                    }
-                }
-                else
-                {
+                } else {
                     understoodAddress = understoodAddress + ", " + output.getName();
                 }
+            } else {
+                understoodAddress = understoodAddress + " " + output.getName();
             }
-            else
-            {
-                understoodAddress = understoodAddress + ", " + output.getName();
-            }
-        }
-        else
-        {
-            understoodAddress = understoodAddress + " " + output.getName();
+            addresses.add(understoodAddress);
         }
 
-
-        return understoodAddress;
+        return addresses;
     }
 
 

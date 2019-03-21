@@ -22,10 +22,12 @@ public class ModelTest {
         assertThat(md.calculateRoute(adresses,"car").getRoute().size(), is(equalTo(1)));
     }
 
+    /*
     @Test
     public void testCalculateLocation()
     {
         Model md = new Model();
         assertThat(md.calculateLocation("Lippstadt"), is(equalTo("Germany")));
     }
+    */
 }

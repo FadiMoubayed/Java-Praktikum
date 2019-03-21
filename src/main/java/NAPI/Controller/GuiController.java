@@ -73,8 +73,7 @@ public class GuiController implements ActionListener {
                 String startAddress = startTextField.getText() + "";
                 List<String> destAddress = new ArrayList<String>();
                 try {
-                    List<String> output = new ArrayList<String>();
-                    output.add(model.calculateLocation(startAddress));
+                    List<String> output = model.calculateLocation(startAddress);
                     this.updateComboBox(output, destAddress);
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while checking start address: \n" + ex.getMessage());
@@ -94,8 +93,7 @@ public class GuiController implements ActionListener {
                 List<String> startAddress = new ArrayList<String>();
                 String destAddress = destTextField.getText() + "";
                 try {
-                    List<String> output = new ArrayList<String>();
-                    output.add(model.calculateLocation(destAddress));
+                    List<String> output = model.calculateLocation(destAddress);
                     this.updateComboBox(startAddress, output);
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while checking destination address: \n" + ex.getMessage());
@@ -118,7 +116,7 @@ public class GuiController implements ActionListener {
             else {
                 List<String> addresses = new ArrayList<String>();
                 System.out.println(startComboBox.getSelectedItem());
-                if(startComboBox.getSelectedItem() == "null")
+                if(!startComboBox.getSelectedItem().equals(null))
                     addresses.add(startComboBox.getSelectedItem() + "");
                 else
                 {

@@ -27,9 +27,9 @@ public class Model {
         Routing rt = new Routing(coordinates, vehicle);
         return rt;
     }
-    public String calculateLocation(String inputAdress)
+    public List<String> calculateLocation(String inputAdress)
     {
         GeoCoding gc = new GeoCoding();
-        return gc.understandInputAddress(inputAdress);
+        return gc.understandInputAddresses(inputAdress);
     }
 }

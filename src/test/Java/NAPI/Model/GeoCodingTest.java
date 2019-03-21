@@ -33,15 +33,13 @@ public class GeoCodingTest {
     }
 
 
-
-
+    /*
     @Test
     public void testUnderstandInputAddress()
     {
         GeoCoding gc = new GeoCoding();
-        List<String> address = new ArrayList();
-        address.add("Stadtlohnweg 33");
-        assertThat(gc.understandInputAddress("Stadtlohnweg 33"), is(equalTo("Germany, Germany 48161, Stadtlohnweg")));
+        assertThat(gc.understandInputAddresses("Stadtlohnweg 33").get(0), is(equalTo("Germany, Germany 48161, Stadtlohnweg")));
     }
+    */
 
 }
