@@ -34,44 +34,25 @@ public class CliController {
 
     private List<String> setUp(List<String> addresses)
     {
-        // TODO Check if necessary
-        List<GeoCoding> geoCodesList = new ArrayList<>();
         List<String> coordinates     = new ArrayList<>();
         for(int i = 0; i < addresses.size(); i++) {
-            geoCodesList.add(model.calculateGC(addresses.get(i), 1));
-            coordinates.add(geoCodesList.get(i).getCoordinateAt(0));
+            coordinates.add(model.calculateGC(addresses.get(i), 1).getCoordinateAt(0));
         }
 
         return coordinates;
     }
-    // TODO Setter & Getter nicht dokumentieren
-    /**
-     * This method returns the total estimated time
-     * of the route between the given two addresses.
-     * @return estimated time for total trip
-     */
-    // TODO public type getName(){ .. }
-    public String calcTime()
+
+    public String getTime()
     {
         return routing.getTime();
     }
 
-    /**
-     * This method returns the total distance of
-     * the route between the given two addresses.
-     * @return total distance
-     */
-    public String calcDistance()
+    public String getDistance()
     {
         return routing.getDistance();
     }
 
-    /**
-     * This method returns the instructions for the
-     * root between the given two addresses.
-     * @return textual routing instructions
-     */
-    public List<String> calcInstructions()
+    public List<String> getInstructions()
     {
         return routing.getRoute();
     }

@@ -18,16 +18,16 @@ public class GeoCoding {
     private GeocodingResponse response;
     private String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
     private String language;
-    private int locationChoiceLimit; // TODO check name
+    private int numberOfLocations;
     private List<GeocodingLocation> geocodingLocationList;
 
     /**
      *
      */
-    public GeoCoding(String address, int locationChoiceLimit) {
+    public GeoCoding(String address, int numberOfLocations) {
         geocodeAPI                 = new GeocodingApi();
         language                   = "en";
-        this.locationChoiceLimit   = locationChoiceLimit;
+        this.numberOfLocations     = numberOfLocations;
         this.geocodingLocationList = convertAddressToGCL(address);
     }
 
@@ -41,7 +41,7 @@ public class GeoCoding {
         GeocodingResponse result;
 
         try {
-            result = geocodeAPI.geocodeGet(key, address, language, locationChoiceLimit,
+            result = geocodeAPI.geocodeGet(key, address, language, numberOfLocations,
                                    false, "", "default");
         } catch (ApiException e) {
             if(e.getCause() instanceof UnknownHostException)
@@ -50,7 +50,7 @@ public class GeoCoding {
                 throw new IllegalArgumentException(e.getResponseBody());
         }
 
-        this.locationChoiceLimit = result.getHits().size();
+        this.numberOfLocations = result.getHits().size();
 
         return result.getHits();
     }
@@ -61,8 +61,8 @@ public class GeoCoding {
      */
     List<String> getCoordinates()
     {
-        List<String> points = new ArrayList<>(locationChoiceLimit);
-        for(int i = 0; i < locationChoiceLimit; i++)
+        List<String> points = new ArrayList<>(numberOfLocations);
+        for(int i = 0; i < numberOfLocations; i++)
         {
             points.add(getCoordinateAt(i));
         }
@@ -72,8 +72,8 @@ public class GeoCoding {
 
     public List<String> getAddresses()
     {
-        List<String> addresses = new ArrayList<>(locationChoiceLimit);
-        for(int i = 0; i< locationChoiceLimit; i++)
+        List<String> addresses = new ArrayList<>(numberOfLocations);
+        for(int i = 0; i< numberOfLocations; i++)
         {
             addresses.add(getAddressAt(i));
         }
@@ -94,12 +94,11 @@ public class GeoCoding {
         //String understoodAddress = "";
         GeocodingLocation output = geocodingLocationList.get(location);
         System.out.println(output);
-        // TODO fill out
         List<String> addressList = Arrays.asList(output.getCountry(),
                                                  output.getCity(),
                                                  output.getPostcode(),
-                output.getStreet(),
-                output.getHousenumber());
+                                                 output.getStreet(),
+                                                 output.getHousenumber());
 
         StringBuilder strBuilder = new StringBuilder();
         boolean allNeqNull = true;

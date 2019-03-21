@@ -19,7 +19,13 @@ public class Model {
         return new Routing(coordinates, vehicle);
     }
 
-    // TODO document
+
+    /**
+     * Returns a new GeoCoding instance from a address
+     * @param inputAddress ...
+     * @param limit ...
+     * @return
+     */
     public GeoCoding calculateGC(String inputAddress, int limit)
     {
         return new GeoCoding(inputAddress,limit);
