@@ -10,8 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class interacts with the GeoCodingApi from the GraphhopperApi
+ *
+ *
+ * This class interacts with the GeocodingApi from the GraphhopperApi.
+ * It will transform a given address into coordinates, which are needed
+ * for the routing calculation. It provides a set of possible addresses
+ * that match most with the given input address, for example if the
+ * address is not complete or is not unique.
+ *
+ * The parameter <code>limit</code> specifies the maximum number of
+ * results by the GeocodingAPI. The results are the guessed addresses
+ * according to the input string.
+ *
+ * For further details visit <code>https://graphhopper.com/api/1/docs/geocoding/</code>
+ *
+ *  @author StephanThomasFadiPaula
  */
+
 public class GeoCoding {
 
     private GeocodingApi geocode;
@@ -21,9 +36,14 @@ public class GeoCoding {
     private int limit;
 
     List<GeocodingLocation> gcl;
+
     /**
+     * Konstruktor
      *
+     * @param address String with given address
+     * @param limit limits number of guessed addresses to choose from
      */
+
     protected GeoCoding(String address, int limit) {
         geocode = new GeocodingApi();
         language = "en";
@@ -31,10 +51,11 @@ public class GeoCoding {
         this.gcl = convertAddressToGCL(address);
     }
      /**
-     * This methods converts a number of adresses into coordinates
-     * @param address start and destination strings
-     * @return List of coordinates (as Strings)
-     */
+      * This methods converts a list of addresses into coordinates
+      * usind the GeocodingAPI.
+      * @param address start and destination strings
+      * @return List of coordinates (as Strings)
+      */
     private List<GeocodingLocation> convertAddressToGCL(String address)
     {
         Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
