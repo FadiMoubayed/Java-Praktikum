@@ -13,39 +13,47 @@ import java.util.List;
  * two given addresses and a specified vehicle.
  */
 public class CliController {
-    Model model;
-    Routing rt;
-    List<GeoCoding> gc;
-
+    private Model model;
+    private Routing routing;
 
     /**
      * This method expects two adresses and information
-     * about a vehicle used. For more information about
+     * about a vehicle used.
+     * For more information about
      * this look at the CliView class documentation.
      *
-     * @param addresses origin and destination address
-     * @param vehicle used for the route
+     * @param addresses Origin and destination address.
+     * @param vehicle Used for the route.
      */
     public CliController(List<String> addresses, String vehicle)
     {
-        model = new Model();
-        List<String> coordinates = new ArrayList<>();
-        for(int i = 0; i<addresses.size(); i++) {
-            gc.add(model.calculateGC(addresses.get(i), 1));
-            coordinates.add(gc.get(i).getCoordinateAt(0));
-        }
-
-        rt = model.calculateRoute(addresses, vehicle);
+        model                    = new Model();
+        List<String> coordinates = setUp(addresses);
+        routing                  = model.calculateRoute(coordinates, vehicle);
     }
 
+    private List<String> setUp(List<String> addresses)
+    {
+        // TODO Check if necessary
+        List<GeoCoding> geoCodesList = new ArrayList<>();
+        List<String> coordinates     = new ArrayList<>();
+        for(int i = 0; i < addresses.size(); i++) {
+            geoCodesList.add(model.calculateGC(addresses.get(i), 1));
+            coordinates.add(geoCodesList.get(i).getCoordinateAt(0));
+        }
+
+        return coordinates;
+    }
+    // TODO Setter & Getter nicht dokumentieren
     /**
      * This method returns the total estimated time
      * of the route between the given two addresses.
      * @return estimated time for total trip
      */
+    // TODO public type getName(){ .. }
     public String calcTime()
     {
-        return rt.getTime();
+        return routing.getTime();
     }
 
     /**
@@ -55,7 +63,7 @@ public class CliController {
      */
     public String calcDistance()
     {
-        return rt.getDistance();
+        return routing.getDistance();
     }
 
     /**
@@ -65,6 +73,6 @@ public class CliController {
      */
     public List<String> calcInstructions()
     {
-        return rt.getRoute();
+        return routing.getRoute();
     }
 }

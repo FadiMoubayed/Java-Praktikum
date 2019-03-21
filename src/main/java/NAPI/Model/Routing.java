@@ -1,13 +1,13 @@
 package NAPI.Model;
+
 import com.graphhopper.directions.api.client.ApiException;
 import com.graphhopper.directions.api.client.api.RoutingApi;
 import com.graphhopper.directions.api.client.model.RouteResponse;
 import com.graphhopper.directions.api.client.model.RouteResponsePath;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
-
 import java.util.concurrent.TimeUnit;
 
 
@@ -16,26 +16,24 @@ import java.util.concurrent.TimeUnit;
  */
 public class Routing {
 
-    private RoutingApi routing;
+    private static final String KEY = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
+    private RoutingApi routingApi;
     private RouteResponsePath path;
-    private String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
-
     private String distance;
     private long time;
 
-    protected Routing(List<String> points, String vehicle)
+    public Routing(List<String> points, String vehicle)
     {
+        this.routingApi = new RoutingApi();
         calcPath(points, vehicle);
         calcTime();
         calcDist();
     }
 
     private void calcPath(List<String> points, String vehicle) {
-        routing = new RoutingApi();
-        RouteResponse rsp = new RouteResponse();
-
+        RouteResponse response;
         try {
-            rsp = routing.routeGet(points, false, key,
+            response = routingApi.routeGet(points, false, KEY,
                     "en", true, vehicle, true, true, Arrays.<String>asList(), false,
                     "fastest", null, null, null, null, null,
                     null, null, null, null, null, null, null);
@@ -47,23 +45,20 @@ public class Routing {
             else
                 throw new IllegalArgumentException(ex.getResponseBody());
         }
-        path = rsp.getPaths().get(0);
+        path = response.getPaths().get(0);
     }
 
 
-    // A method to convert time from miliseconds to minuets
+    // A method to convert time from milliseconds to minutes
     private void calcTime(){
         long estimatedTimeMilliSeconds = (path.getTime());
-        long estimatedTimeMinutes = TimeUnit.MILLISECONDS.toMinutes(estimatedTimeMilliSeconds);
-        time = estimatedTimeMinutes;
+        this.time = TimeUnit.MILLISECONDS.toMinutes(estimatedTimeMilliSeconds);
     }
 
     // A method to convert distance from meters to KM
     private void calcDist(){
         double routeDistance = path.getDistance()/1000;
-        // Formatting the distance to display 2 digits
-        String routeDistanceString = String.format("%.2f", routeDistance);
-        distance = routeDistanceString;
+        this.distance = String.format("%.2f", routeDistance);
     }
 
     /**
@@ -71,22 +66,22 @@ public class Routing {
      * @return list of instructions (as Strings)
      */
     public List<String> getRoute( ) {
-
-
-        //Getting the output from the Geocoding API (of class java.util.ArrayList)
-        //List<String> points = new GeoCoding().convertAddressToCoordinates("Muenster ifgi", "Muenster hbf");
-
-        List<String> instructions = new ArrayList<String>();
-
-            for(int i=0; i<path.getInstructions().size(); i++) {
+        List<String> instructions = new LinkedList<>();
+            for(int i = 0; i < path.getInstructions().size(); i++) {
                 if (path.getInstructions().get(i).getText().startsWith("Continue")) {
-                    instructions.add(path.getInstructions().get(i).getText() + " for " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
+                    instructions.add(path.getInstructions().get(i).getText() + " for " +
+                            (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
                 } else if (path.getInstructions().get(i).getText().equals("Arrive at destination")) {
                     instructions.add(path.getInstructions().get(i).getText());
                 } else if (path.getInstructions().get(i).getText().startsWith("Keep")) {
-                    instructions.add(path.getInstructions().get(i).getText() + " for " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
+                    instructions.add(path.getInstructions().get(i).getText() + " for " +
+                            (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
                 } else {
-                    instructions.add(" In " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters " + path.getInstructions().get(i).getText());
+                    instructions.add(
+                            " In " +
+                            (int)((double)path.getInstructions().get(i).getDistance()) +
+                            " meters " +
+                            path.getInstructions().get(i).getText());
                 }
             }
 
@@ -97,9 +92,16 @@ public class Routing {
         return distance;
     }
 
-    public String getTime() {
-        return Long.toString(time);
+    public String getTime()
+    {
+        if(time < 60)
+        {
+            return this.time + " minutes";
+        }
+        else
+        {
+            double timeHours = time / 60.0;
+            return String.format("%.1f", timeHours) + " hours";
+        }
     }
 }
-
-
