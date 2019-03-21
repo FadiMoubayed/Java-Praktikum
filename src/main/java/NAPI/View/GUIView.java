@@ -147,7 +147,7 @@ public GUIView()
 
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.ipady = 15;
-        gbc.gridwidth = 4;
+        gbc.gridwidth = 5;
         gbc.gridx = 1;
         gbc.gridy = 3;
         ctrlPane.add(calculateButton, gbc);
@@ -174,6 +174,7 @@ public GUIView()
         frame.add(ctrlPane);
         frame.pack();
         frame.setSize(900, 500);
+        frame.setMinimumSize(new Dimension(900,500));
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
