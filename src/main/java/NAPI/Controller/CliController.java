@@ -19,9 +19,7 @@ public class CliController {
 
 
     /**
-     * This method expects two adresses and information
-     * about a vehicle used. For more information about
-     * this look at the CliView class documentation.
+     *
      *
      * @param addresses origin and destination address
      * @param vehicle used for the route
