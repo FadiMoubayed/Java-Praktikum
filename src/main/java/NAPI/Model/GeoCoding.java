@@ -12,6 +12,8 @@ import java.util.List;
 
 /**
  * This class interacts with the GeoCodingApi from the Graphhopper Api
+ *
+ * @author Stefan, Fadi, Thomas, Paula
  */
 public class GeoCoding {
     private GeocodingApi geocodeAPI;
@@ -21,6 +23,7 @@ public class GeoCoding {
     private int numberOfLocations;
     private List<GeocodingLocation> geocodingLocationList;
 
+    //TODO JavaDoc
     /**
      *
      */
@@ -31,11 +34,6 @@ public class GeoCoding {
         this.geocodingLocationList = convertAddressToGCL(address);
     }
 
-     /**
-     * This methods converts a number of adresses into coordinates
-     * @param address start and destination strings
-     * @return List of coordinates (as Strings)
-     */
     private List<GeocodingLocation> convertAddressToGCL(String address)
     {
         GeocodingResponse result;
@@ -55,10 +53,6 @@ public class GeoCoding {
         return result.getHits();
     }
 
-    /**
-     * This methods converts a number of adresses into coordinates
-     * @return List of coordinates (as Strings)
-     */
     List<String> getCoordinates()
     {
         List<String> points = new ArrayList<>(numberOfLocations);
@@ -91,7 +85,6 @@ public class GeoCoding {
 
     public String getAddressAt(int location)
     {
-        //String understoodAddress = "";
         GeocodingLocation output = geocodingLocationList.get(location);
         System.out.println(output);
         List<String> addressList = Arrays.asList(output.getCountry(),
@@ -126,37 +119,6 @@ public class GeoCoding {
             int indexOfLastComma = strBuilder.lastIndexOf(",");
             strBuilder.delete(indexOfLastComma, indexOfLastComma+2);
         }
-
-        /*if (output.getCountry() != null) {
-            understoodAddress = output.getCountry();
-            if (output.getCity() != null) {
-                understoodAddress = understoodAddress + ", " + output.getCountry();
-                if (output.getPostcode() != null) {
-                    understoodAddress = understoodAddress + ", " + output.getPostcode();
-                    if (output.getCity() != null) {
-                        understoodAddress = understoodAddress + " " + output.getCity();
-                        if (output.getStreet() != null) {
-                            understoodAddress = understoodAddress + ", " + output.getStreet();
-                            if (output.getHousenumber() != null) {
-                                understoodAddress = understoodAddress + " " + output.getHousenumber();
-                            } else {
-                                understoodAddress = understoodAddress + " " + output.getName();
-                            }
-                        } else {
-                            understoodAddress = understoodAddress + ", " + output.getName();
-                        }
-                    } else {
-                        understoodAddress = understoodAddress + " " + output.getName();
-                    }
-                } else {
-                    understoodAddress = understoodAddress + ", " + output.getName();
-                }
-            } else {
-                understoodAddress = understoodAddress + ", " + output.getName();
-            }
-        } else {
-            understoodAddress = understoodAddress + " " + output.getName();
-        }*/
 
         return strBuilder.toString();
     }

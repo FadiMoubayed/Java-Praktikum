@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This class interacts with the RoutingApi from the GraphhopperApi
+ *
+ * @author Stefan, Fadi, Thomas, Paula
  */
 public class Routing {
 
@@ -36,7 +38,8 @@ public class Routing {
             response = routingApi.routeGet(points, false, KEY,
                     "en", true, vehicle, true, true, Arrays.<String>asList(), false,
                     "fastest", null, null, null, null, null,
-                    null, null, null, null, null, null, null);
+                    null, null, null, null,
+                    null, null, null);
 
         } catch (ApiException ex)
         {
@@ -48,14 +51,11 @@ public class Routing {
         path = response.getPaths().get(0);
     }
 
-
-    // A method to convert time from milliseconds to minutes
     private void calcTime(){
         long estimatedTimeMilliSeconds = (path.getTime());
         this.time = TimeUnit.MILLISECONDS.toMinutes(estimatedTimeMilliSeconds);
     }
 
-    // A method to convert distance from meters to KM
     private void calcDist(){
         double routeDistance = path.getDistance()/1000;
         this.distance = String.format("%.2f", routeDistance);
@@ -63,6 +63,7 @@ public class Routing {
 
     /**
      * this method gives you a list of instructions on how to travel between given coordinates with a vehicle of your choice
+     *
      * @return list of instructions (as Strings)
      */
     public List<String> getRoute( ) {

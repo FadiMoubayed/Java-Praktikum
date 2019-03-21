@@ -5,7 +5,10 @@ import NAPI.View.GUIView;
 
 
 /**
- * This is the runner class for our NavigationApi
+ * This is the runner class for our NavigationApi.
+ * You can choose between a Graphical User Interface and a Console Line Interface.
+ * @author Stefan, Fadi, Thomas, Paula
+ * @version 1.0
  */
 public class Runner {
     public static void main(String[] args)
@@ -16,8 +19,7 @@ public class Runner {
         else if(args[1] == "cli") {
             CliView cv = new CliView();
         }
-        else
-        {
+        else {
             System.out.println("You can choose between a gui and a cli");
         }
         //TODO java -jar jarname "gui"
