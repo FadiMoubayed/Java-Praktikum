@@ -1,8 +1,10 @@
 package NAPI.Controller;
 
+import NAPI.Model.GeoCoding;
 import NAPI.Model.Model;
 import NAPI.Model.Routing;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +13,10 @@ import java.util.List;
  * two given addresses and a specified vehicle.
  */
 public class CliController {
-    Model rh;
+    Model model;
     Routing rt;
+    List<GeoCoding> gc;
+
 
     /**
      * This method expects two adresses and information
@@ -22,11 +26,16 @@ public class CliController {
      * @param addresses origin and destination address
      * @param vehicle used for the route
      */
-
     public CliController(List<String> addresses, String vehicle)
     {
-        rh = new Model();
-        rt = rh.calculateRoute(addresses, vehicle);
+        model = new Model();
+        List<String> coordinates = new ArrayList<>();
+        for(int i = 0; i<addresses.size(); i++) {
+            gc.add(model.calculateGC(addresses.get(i), 1));
+            coordinates.add(gc.get(i).getCoordinateAt(0));
+        }
+
+        rt = model.calculateRoute(addresses, vehicle);
     }
 
     /**

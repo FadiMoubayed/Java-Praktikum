@@ -1,5 +1,6 @@
 package NAPI.Controller;
 
+import NAPI.Model.GeoCoding;
 import NAPI.Model.Model;
 import NAPI.Model.Routing;
 import NAPI.View.GUIView;
@@ -17,10 +18,14 @@ public class GuiController implements ActionListener {
     private JTextField destTextField;
     private JButton startCheckButton;
     private JButton destCheckButton;
+    private JComboBox startComboBox;
+    private JComboBox destComboBox;
     private JLabel startCheckLabel;
     private JLabel destCheckLabel;
     private JButton calculateButton;
     private JTextArea outputTextArea;
+    private GeoCoding startGC;
+    private GeoCoding destGC;
     private Model model;
 
     private String vehicle;
@@ -35,10 +40,10 @@ public class GuiController implements ActionListener {
      * @param destCheckButton
      * @param calculateButton
      * @param outputTextArea
-     * @param startCheckLabel
-     * @param destCheckLabel
+     * @param startComboBox
+     * @param destComboBox
      */
-    public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, JTextArea outputTextArea, JLabel startCheckLabel, JLabel destCheckLabel) {
+    public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, JTextArea outputTextArea, JComboBox startComboBox, JComboBox destComboBox, JLabel startCheckLabel, JLabel destCheckLabel) {
         super();
         this.startTextField = startTextField;
         this.destTextField = destTextField;
@@ -46,6 +51,8 @@ public class GuiController implements ActionListener {
         this.destCheckButton = destCheckButton;
         this.calculateButton = calculateButton;
         this.outputTextArea = outputTextArea;
+        this.startComboBox = startComboBox;
+        this.destComboBox = destComboBox;
         this.startCheckLabel = startCheckLabel;
         this.destCheckLabel = destCheckLabel;
         this.model = new Model();
@@ -67,10 +74,11 @@ public class GuiController implements ActionListener {
             }
             else {
                 String startAddress = startTextField.getText() + "";
-                String destAddress = "";
+                List<String> destAddress = new ArrayList<String>();
                 try {
-                    String output = model.calculateLocation(startAddress);
-                    this.updateLabels(output, destAddress);
+                    startGC = model.calculateGC(startAddress, 3);
+                    List<String> output = startGC.getAddresses();
+                    this.updateComboBox(output, destAddress);
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while checking start address: \n" + ex.getMessage());
                 } catch (Exception ex)
@@ -86,10 +94,12 @@ public class GuiController implements ActionListener {
                 this.errorMessage("error while checking destination address: \n" + "please put in a destination address\n ");
             }
             else {
-                String startAddress = "";
+                List<String> startAddress = new ArrayList<String>();
                 String destAddress = destTextField.getText() + "";
                 try {
-                    this.updateLabels(startAddress, model.calculateLocation(destAddress));
+                    destGC = model.calculateGC(destAddress, 3);
+                    List<String> output = destGC.getAddresses();
+                    this.updateComboBox(startAddress, output);
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while checking destination address: \n" + ex.getMessage());
                 } catch (Exception ex)
@@ -109,12 +119,12 @@ public class GuiController implements ActionListener {
                 this.errorMessage("error while calculating: \n" + "please put in a destination address");
             }
             else {
-                List<String> addresses = new ArrayList<String>();
-                addresses.add(startTextField.getText() + "");
-                addresses.add(destTextField.getText() + "");
+                List<String> coordinates = new ArrayList<String>();
+                coordinates.add(startGC.getCoordinateAt(startComboBox.getSelectedIndex()));
+                coordinates.add(destGC.getCoordinateAt(destComboBox.getSelectedIndex()));
                 Routing rt;
                 try {
-                    rt = model.calculateRoute(addresses, vehicle);
+                    rt = model.calculateRoute(coordinates, vehicle);
                     this.updateOutput(rt.getTime(), rt.getDistance(), rt.getRoute());
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while calculating: \n" + ex.getMessage());
@@ -132,13 +142,17 @@ public class GuiController implements ActionListener {
      * @param startAddress
      * @param destAddress
      */
-    public void updateLabels(String startAddress, String destAddress)
+    public void updateComboBox(List<String> startAddress, List<String> destAddress)
     {
-        if(startAddress != "") {
-            startCheckLabel.setText(startAddress);
+        if(!startAddress.isEmpty()) {
+            startComboBox.removeAllItems();
+            for(int i = 0; i<startAddress.size(); i++)
+                startComboBox.addItem(startAddress.get(i));
         }
-        if(destAddress != "") {
-            destCheckLabel.setText(destAddress);
+        if(!destAddress.isEmpty()) {
+            destComboBox.removeAllItems();
+            for(int i = 0; i<destAddress.size(); i++)
+                destComboBox.addItem(destAddress.get(i));
         }
     }
 
