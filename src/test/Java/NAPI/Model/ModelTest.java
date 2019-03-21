@@ -27,7 +27,7 @@ public class ModelTest {
     public void testCalculateLocation()
     {
         Model md = new Model();
-        assertThat(md.calculateLocation("Lippstadt"), is(equalTo("Germany")));
+        assertThat(md.calculateLocation("Lippstadt")., is(equalTo("Germany")));
     }
     */
 }
