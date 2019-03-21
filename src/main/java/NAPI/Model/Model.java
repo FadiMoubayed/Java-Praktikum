@@ -2,7 +2,9 @@ package NAPI.Model;
 
 import NAPI.Model.GeoCoding;
 import NAPI.Model.Routing;
+import com.graphhopper.search.Geocoding;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,25 +13,21 @@ import java.util.List;
  */
 public class Model {
 
+
     /**
      * this method gives you a list of instructions on how to travel between given adresses with a vehicle of your choice
-     * @param adresses
+     * @param coordinates
      * @param vehicle
      * @return route as a list of instructions
      */
-    public Routing calculateRoute(List<String> adresses, String vehicle)
+    public Routing calculateRoute(List<String> coordinates, String vehicle)
     {
-        List<String> route = null;
-
-        GeoCoding gc = new GeoCoding();
-        List<String> coordinates = null;
-        coordinates = gc.convertAddressToCoordinates(adresses);
         Routing rt = new Routing(coordinates, vehicle);
         return rt;
     }
-    public List<String> calculateLocation(String inputAdress)
+
+    public GeoCoding calculateGC(String inputAddress, int limit)
     {
-        GeoCoding gc = new GeoCoding();
-        return gc.understandInputAddresses(inputAdress);
+        return new GeoCoding(inputAddress,limit);
     }
 }

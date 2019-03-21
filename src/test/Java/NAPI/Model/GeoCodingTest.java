@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GeoCodingTest {
+    /*
     @Test
     public void testConvertAddressToCoordinates()
     {
@@ -33,7 +34,7 @@ public class GeoCodingTest {
     }
 
 
-    /*
+
     @Test
     public void testUnderstandInputAddress()
     {

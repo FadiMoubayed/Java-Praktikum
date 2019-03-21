@@ -1,5 +1,6 @@
 package NAPI.Controller;
 
+import NAPI.Model.GeoCoding;
 import NAPI.Model.Model;
 import NAPI.Model.Routing;
 import NAPI.View.GUIView;
@@ -23,6 +24,8 @@ public class GuiController implements ActionListener {
     private JLabel destCheckLabel;
     private JButton calculateButton;
     private JTextArea outputTextArea;
+    private GeoCoding startGC;
+    private GeoCoding destGC;
     private Model model;
 
     private String vehicle;
@@ -73,7 +76,8 @@ public class GuiController implements ActionListener {
                 String startAddress = startTextField.getText() + "";
                 List<String> destAddress = new ArrayList<String>();
                 try {
-                    List<String> output = model.calculateLocation(startAddress);
+                    startGC = model.calculateGC(startAddress, 3);
+                    List<String> output = startGC.getAddresses();
                     this.updateComboBox(output, destAddress);
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while checking start address: \n" + ex.getMessage());
@@ -93,7 +97,8 @@ public class GuiController implements ActionListener {
                 List<String> startAddress = new ArrayList<String>();
                 String destAddress = destTextField.getText() + "";
                 try {
-                    List<String> output = model.calculateLocation(destAddress);
+                    destGC = model.calculateGC(destAddress, 3);
+                    List<String> output = destGC.getAddresses();
                     this.updateComboBox(startAddress, output);
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while checking destination address: \n" + ex.getMessage());
@@ -114,22 +119,12 @@ public class GuiController implements ActionListener {
                 this.errorMessage("error while calculating: \n" + "please put in a destination address");
             }
             else {
-                List<String> addresses = new ArrayList<String>();
-                System.out.println(startComboBox.getSelectedItem());
-                if(!startComboBox.getSelectedItem().equals(null))
-                    addresses.add(startComboBox.getSelectedItem() + "");
-                else
-                {
-                    addresses.add(startCheckLabel.getText() + "");
-                    System.out.println(startCheckLabel.getText());
-                }
-                    if(destComboBox.getSelectedItem() == "null")
-                    addresses.add(destComboBox.getSelectedItem() + "");
-                else
-                    addresses.add(destCheckLabel.getText() + "");
+                List<String> coordinates = new ArrayList<String>();
+                coordinates.add(startGC.getCoordinateAt(startComboBox.getSelectedIndex()));
+                coordinates.add(destGC.getCoordinateAt(destComboBox.getSelectedIndex()));
                 Routing rt;
                 try {
-                    rt = model.calculateRoute(addresses, vehicle);
+                    rt = model.calculateRoute(coordinates, vehicle);
                     this.updateOutput(rt.getTime(), rt.getDistance(), rt.getRoute());
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while calculating: \n" + ex.getMessage());
