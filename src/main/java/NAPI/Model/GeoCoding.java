@@ -28,11 +28,15 @@ public class GeoCoding {
     {
         geocode = new GeocodingApi();
         language = "en";
+
         this.limit = limit;
         this.gcl = convertAddressToGCL(address);
-
-}
-
+   
+     /**
+     * This methods converts a number of adresses into coordinates
+     * @param addresses start and destination strings
+     * @return List of coordinates (as Strings)
+     */
     private List<GeocodingLocation> convertAddressToGCL(String address)
     {
         Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
@@ -44,7 +48,7 @@ public class GeoCoding {
 
         } catch (ApiException e) {
             if(e.getCause() instanceof UnknownHostException)
-                throw new IllegalArgumentException("couldnt connect to network.");
+                throw new IllegalArgumentException("Could not connect to network.");
             else
                 throw new IllegalArgumentException(e.getResponseBody());
         }
