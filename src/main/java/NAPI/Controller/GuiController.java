@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -167,10 +168,11 @@ public class GuiController implements ActionListener {
     {
         outputTextArea.setText("");
         outputTextArea.setRows(instructions.size() + 3);
-        outputTextArea.append("Estimated time is: " + time + " minutes" + "\n");
+        outputTextArea.append("Estimated time is: " + time + "\n");
         outputTextArea.append("The total distance is: " + distance + " kilometers" + "\n" + "\n");
-        for(int i = 0; i<instructions.size();i++) {
-            outputTextArea.append(instructions.get(i) + "\n");
+        Iterator it = instructions.iterator();
+        while(it.hasNext()) {
+            outputTextArea.append(it.next() + "\n");
         }
     }
 

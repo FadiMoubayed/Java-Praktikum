@@ -3,6 +3,7 @@ package NAPI.View;
 import NAPI.Controller.CliController;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,41 +36,52 @@ public class CliView{
     }
 
     public void draw() {
-        List<String> adresses = new ArrayList<String>();
-        Scanner sn = new Scanner(System.in);
-        String startingAddress = "";
-        while (startingAddress.isEmpty()) {
+        List<String> adresses = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String startingAddress;
+        do {
             System.out.print("Please enter your starting address: ");
-            startingAddress = sn.nextLine();
-        }
+            startingAddress = sc.nextLine();
+        } while (startingAddress.isEmpty());
         adresses.add(startingAddress);
 
 
-        String destinationAddress = "";
-        while (destinationAddress.isEmpty()) {
+        String destinationAddress;
+        do {
             System.out.print("Please enter your destination address: ");
-            destinationAddress = sn.nextLine();
-        }
+            destinationAddress = sc.nextLine();
+        } while(destinationAddress.isEmpty());
         adresses.add(destinationAddress);
 
         String vehicle = "";
+        // TODO enum aus fahrzeugen und abfrage ueber enum.contains()
+        enum Weekday
+        {
+            MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+        }
         // check whether vehicle input matches with the supported vehicles
-        while (!vehicle.equals("car") && !vehicle.equals("truck") && !vehicle.equals("scooter") && !vehicle.equals("foot") && !vehicle.equals("hike") && !vehicle.equals("bike")) {
+        do {
             System.out.println("Please enter the type of your vehicle: ");
             System.out.println("car, truck, scooter, foot, hike, bike ");
-            vehicle = sn.nextLine();
-        }
+            vehicle = sc.nextLine();
+        } while (!vehicle.equals("car") && !vehicle.equals("truck") && !vehicle.equals("scooter") &&
+                !vehicle.equals("foot") && !vehicle.equals("hike") && !vehicle.equals("bike"));
 
 
         CliController cc = new CliController(adresses, vehicle);
-        System.out.println("\n" + "Estimated time is: " + cc.calcTime() + " minutes");
-        System.out.println("The total distance is: " + cc.calcDistance() + " kilometers" + "\n");
+        System.out.println(System.lineSeparator() + "Estimated time is: " + cc.calcTime());
+        System.out.println("The total distance is: " + cc.calcDistance() + " kilometers" + System.lineSeparator());
 
-        List<String> instructions = cc.calcInstructions();
+        List<String> instructions = cc.calcInstructions(); //calcInstructions returns a LinkedList
 
-        for(int i = 0; i<instructions.size();i++) {
-            System.out.println(instructions.get(i));
+        Iterator it = instructions.iterator();
+        while(it.hasNext()) {
+            System.out.println(it.next());
             // The class of instructions.get(i) is class java.lang.String
         }
+    }
+    public enum Weekday
+    {
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
     }
 }
