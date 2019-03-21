@@ -1,7 +1,6 @@
 package NAPI.Controller;
 
 import NAPI.Model.GeoCoding;
-import NAPI.Model.Model;
 import NAPI.Model.Routing;
 
 import java.util.ArrayList;
@@ -11,9 +10,11 @@ import java.util.List;
  * This class is fetching information about calculated
  * duration, distance and routing instruction of the
  * two given addresses and a specified vehicle.
+ *
+ * @author Stefan, Fadi, Thomas, Paula
  */
-public class CliController {
-    private Model model;
+public class CliController
+{
     private Routing routing;
 
     /**
@@ -27,16 +28,15 @@ public class CliController {
      */
     public CliController(List<String> addresses, String vehicle)
     {
-        model                    = new Model();
         List<String> coordinates = setUp(addresses);
-        routing                  = model.calculateRoute(coordinates, vehicle);
+        routing                  = new Routing(coordinates, vehicle);
     }
 
     private List<String> setUp(List<String> addresses)
     {
         List<String> coordinates     = new ArrayList<>();
         for(int i = 0; i < addresses.size(); i++) {
-            coordinates.add(model.calculateGC(addresses.get(i), 1).getCoordinateAt(0));
+            coordinates.add((new GeoCoding(addresses.get(i), 1)).getCoordinateAt(0));
         }
 
         return coordinates;
