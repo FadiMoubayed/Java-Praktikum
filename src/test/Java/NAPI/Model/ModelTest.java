@@ -2,6 +2,7 @@ package NAPI.Model;
 
 import NAPI.Model.Model;
 import NAPI.Model.Routing;
+import com.graphhopper.search.Geocoding;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,18 +17,17 @@ public class ModelTest {
     public void testCalculateRoute()
     {
         Model md = new Model();
-        List<String> adresses = new ArrayList();
-        adresses.add("Muenster ifgi");
-        adresses.add("Muenster ifgi");
-        assertThat(md.calculateRoute(adresses,"car").getRoute().size(), is(equalTo(1)));
+        List<String> coordinates = new ArrayList();
+        coordinates.add("51.972195150000005,7.560380344183411");
+        coordinates.add("51.972195150000005,7.560380344183411");
+        assertThat(md.calculateRoute(coordinates,"car").getRoute().size(), is(equalTo(1)));
     }
 
-    /*
+
     @Test
-    public void testCalculateLocation()
+    public void testCalculateGC()
     {
         Model md = new Model();
-        assertThat(md.calculateLocation("Lippstadt"), is(equalTo("Germany")));
+        assertThat(md.calculateGC("Lippstadt",1).getAddressAt(0), is(equalTo("Germany, Lippstadt")));
     }
-    */
 }

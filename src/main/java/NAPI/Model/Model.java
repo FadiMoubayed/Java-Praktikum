@@ -28,6 +28,7 @@ public class Model {
 
     public GeoCoding calculateGC(String inputAddress, int limit)
     {
-        return new GeoCoding(inputAddress,limit);
+        GeoCoding gc = new GeoCoding(inputAddress,limit);
+        return gc;
     }
 }

@@ -24,17 +24,15 @@ public class GeoCoding {
     /**
      *
      */
-    protected GeoCoding(String address, int limit)
-    {
+    protected GeoCoding(String address, int limit) {
         geocode = new GeocodingApi();
         language = "en";
-
         this.limit = limit;
         this.gcl = convertAddressToGCL(address);
-   
+    }
      /**
      * This methods converts a number of adresses into coordinates
-     * @param addresses start and destination strings
+     * @param address start and destination strings
      * @return List of coordinates (as Strings)
      */
     private List<GeocodingLocation> convertAddressToGCL(String address)
@@ -52,6 +50,7 @@ public class GeoCoding {
             else
                 throw new IllegalArgumentException(e.getResponseBody());
         }
+        limit = result.getHits().size();
         return result.getHits();
     }
 
