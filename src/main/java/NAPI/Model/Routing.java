@@ -79,7 +79,6 @@ public class Routing {
         List<String> instructions = new ArrayList<String>();
 
             for(int i=0; i<path.getInstructions().size(); i++) {
-                System.out.println(path.getInstructions().get(i).getText());
                 if (path.getInstructions().get(i).getText().startsWith("Continue")) {
                     instructions.add(path.getInstructions().get(i).getText() + " for " + (int)((double)path.getInstructions().get(i).getDistance()) + " meters");
                 } else if (path.getInstructions().get(i).getText().equals("Arrive at destination")) {
