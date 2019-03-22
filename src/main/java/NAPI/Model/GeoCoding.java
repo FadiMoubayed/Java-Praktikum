@@ -39,7 +39,7 @@ public class GeoCoding {
      * Konstruktor
      *
      * @param address String with given address
-     * @param limit limits number of guessed addresses to choose from (DEPRECATED)
+     * @param numberOfLocations limits number of guessed addresses to choose from (DEPRECATED)
      */
 
     public GeoCoding(String address, int numberOfLocations) {
