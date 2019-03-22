@@ -23,16 +23,17 @@ import java.util.List;
  *
  * For further details visit <code>https://graphhopper.com/api/1/docs/geocoding/</code>
  *
- *  @author StephanThomasFadiPaula
+ *  @author Stephan, Fadi, Thomas, Paula
  */
 
 public class GeoCoding {
+    private static final String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
     private GeocodingApi geocodeAPI;
     private GeocodingResponse response;
-    private String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
     private String language;
     private int numberOfLocations;
-    private List<GeocodingLocation> geocodingLocationList;
+    private List<GeocodingLocation> gcLocations;
+
 
     /**
      * Konstruktor
@@ -45,7 +46,7 @@ public class GeoCoding {
         geocodeAPI                 = new GeocodingApi();
         language                   = "en";
         this.numberOfLocations     = numberOfLocations;
-        this.geocodingLocationList = convertAddressToGCL(address);
+        this.gcLocations = convertAddressToGCL(address);
     }
 
      /**
@@ -99,19 +100,17 @@ public class GeoCoding {
         return addresses;
     }
 
-    public String getCoordinateAt(int location)
+    public String getCoordinateAt(int index)
     {
-        double lat = geocodingLocationList.get(location).getPoint().getLat();
-        double lng = geocodingLocationList.get(location).getPoint().getLng();
+        double lat = gcLocations.get(index).getPoint().getLat();
+        double lng = gcLocations.get(index).getPoint().getLng();
 
         return lat + "," + lng;
     }
 
-    public String getAddressAt(int location)
+    public String getAddressAt(int index)
     {
-        //String understoodAddress = "";
-        GeocodingLocation output = geocodingLocationList.get(location);
-        System.out.println(output);
+        GeocodingLocation output = gcLocations.get(index);
         List<String> addressList = Arrays.asList(output.getCountry(),
                                                  output.getCity(),
                                                  output.getPostcode(),
@@ -144,37 +143,6 @@ public class GeoCoding {
             int indexOfLastComma = strBuilder.lastIndexOf(",");
             strBuilder.delete(indexOfLastComma, indexOfLastComma+2);
         }
-
-        /*if (output.getCountry() != null) {
-            understoodAddress = output.getCountry();
-            if (output.getCity() != null) {
-                understoodAddress = understoodAddress + ", " + output.getCountry();
-                if (output.getPostcode() != null) {
-                    understoodAddress = understoodAddress + ", " + output.getPostcode();
-                    if (output.getCity() != null) {
-                        understoodAddress = understoodAddress + " " + output.getCity();
-                        if (output.getStreet() != null) {
-                            understoodAddress = understoodAddress + ", " + output.getStreet();
-                            if (output.getHousenumber() != null) {
-                                understoodAddress = understoodAddress + " " + output.getHousenumber();
-                            } else {
-                                understoodAddress = understoodAddress + " " + output.getName();
-                            }
-                        } else {
-                            understoodAddress = understoodAddress + ", " + output.getName();
-                        }
-                    } else {
-                        understoodAddress = understoodAddress + " " + output.getName();
-                    }
-                } else {
-                    understoodAddress = understoodAddress + ", " + output.getName();
-                }
-            } else {
-                understoodAddress = understoodAddress + ", " + output.getName();
-            }
-        } else {
-            understoodAddress = understoodAddress + " " + output.getName();
-        }*/
 
         return strBuilder.toString();
     }
