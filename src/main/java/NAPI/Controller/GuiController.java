@@ -140,13 +140,13 @@ public class GuiController implements ActionListener {
         }
         else if(e.getSource() == this.calculateButton)
         {
-            if(startTextField.getText().isEmpty())
+            if(startComboBox.getItemCount()==0)
             {
-                this.errorMessage("error while calculating: \n" + "please put in a starting address");
+                this.errorMessage("error while calculating: \n" + "please put in a starting address and hit check");
             }
-            else if(destTextField.getText().isEmpty())
+            else if(destComboBox.getItemCount()==0)
             {
-                this.errorMessage("error while calculating: \n" + "please put in a destination address");
+                this.errorMessage("error while calculating: \n" + "please put in a destination address and hit check");
             }
             else {
                 List<String> coordinates = new ArrayList<String>();
