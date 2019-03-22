@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
- *
  * This class interacts with the GeocodingApi from the GraphhopperApi.
  * It will transform a given address into coordinates, which are needed
  * for the routing calculation. It provides a set of possible addresses
@@ -40,7 +38,7 @@ public class GeoCoding {
      * Konstruktor
      *
      * @param address String with given address
-     * @param limit limits number of guessed addresses to choose from
+     * @param limit limits number of guessed addresses to choose from (DEPRECATED)
      */
 
     public GeoCoding(String address, int numberOfLocations) {
@@ -52,7 +50,7 @@ public class GeoCoding {
 
      /**
       * This methods converts a list of addresses into coordinates
-      * usind the GeocodingAPI.
+      * using the GeocodingAPI.d
       * @param address start and destination strings
       * @return List of coordinates (as Strings)
       */
@@ -76,7 +74,7 @@ public class GeoCoding {
     }
 
     /**
-     * This methods converts a number of adresses into coordinates
+     * This methods converts a number of addresses into coordinates.
      * @return List of coordinates (as Strings)
      */
     List<String> getCoordinates()

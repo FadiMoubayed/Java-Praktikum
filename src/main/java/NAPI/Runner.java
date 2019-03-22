@@ -10,7 +10,8 @@ import NAPI.View.GUIView;
 public class Runner {
     public static void main(String[] args)
     {
-        if(args[1] == "gui") {
+        if(args.length <= 2) { // changed for testing purposes only
+        // if (args[1] == "gui") {
             GUIView gv = new GUIView();
         }
         else if(args[1] == "cli") {

@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
+/**
+ * This class is fetching information about calculated
+ * duration, distance and routing instruction of the
+ * two given addresses and a specified vehicle.
+ */
 public class GuiController implements ActionListener {
 
     private JTextField startTextField;
@@ -33,16 +37,37 @@ public class GuiController implements ActionListener {
 
     /**
      * This is the constructor.
-     * It imports some components from the GuiView, creates a new instance of the model
-     * and sets the default vehicle to "car"
-     * @param startTextField
-     * @param destTextField
-     * @param startCheckButton
-     * @param destCheckButton
-     * @param calculateButton
-     * @param outputTextArea
-     * @param startComboBox
-     * @param destComboBox
+     *
+     * It imports some components from the GuiView,
+     * creates a new instance of the model and sets
+     * the default vehicle to "car"
+     *
+     * @param startTextField The text field for the
+     *                       input of the start/origin
+     *                       address
+     * @param destTextField The text field for the
+     *                      input of the destination
+     *                      address
+     * @param startCheckButton Hitting this button will
+     *                         check whether the input
+     *                         address exists. A suggested
+     *                         address is displayed on the
+     *                         screen.
+     * @param destCheckButton Hitting this button will check
+     *                        whether the input address
+     *                        exists. A suggested address is
+     *                        displayed on the screen.
+     * @param calculateButton Hitting this button will process
+     *                        the route calculation between the
+     *                        two given addresses.
+     * @param outputTextArea In this area the routing information
+     *                       will be displayed.
+     * @param startComboBox Three suggested addresses will be
+     *                      displayed here in a drop down menu.
+     *                      The user may select one out of them.
+     * @param destComboBox Three suggested addresses will be
+     *                     displayed here in a drop down menu.
+     *                     The user may select one out of them.
      */
     public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, JTextArea outputTextArea, JComboBox startComboBox, JComboBox destComboBox, JLabel startCheckLabel, JLabel destCheckLabel) {
         super();
@@ -63,7 +88,7 @@ public class GuiController implements ActionListener {
 
     /**
      * This method listens to and processes the user input
-     * @param e
+     * @param e Action listener
      */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -71,7 +96,8 @@ public class GuiController implements ActionListener {
         {
             if(startTextField.getText().isEmpty())
             {
-                this.errorMessage("error while checking start address: \n" + "please put in a starting address");
+                this.errorMessage("error while checking start address: \n" +
+                        "please put in a starting address");
             }
             else {
                 String startAddress = startTextField.getText() + "";
@@ -84,7 +110,8 @@ public class GuiController implements ActionListener {
                     this.errorMessage("error while checking start address: \n" + ex.getMessage());
                 } catch (Exception ex)
                 {
-                    this.errorMessage("error while checking start address: \n" + "Please try a different address \n \n" + "type of error: \n" + ex.toString());
+                    this.errorMessage("error while checking start address: \n" +
+                            "Please try a different address \n \n" + "type of error: \n" + ex.toString());
                 }
             }
         }
@@ -92,7 +119,8 @@ public class GuiController implements ActionListener {
         {
             if(destTextField.getText().isEmpty())
             {
-                this.errorMessage("error while checking destination address: \n" + "please put in a destination address\n ");
+                this.errorMessage("error while checking destination address: \n" +
+                        "please put in a destination address\n ");
             }
             else {
                 List<String> startAddress = new ArrayList<String>();
@@ -105,7 +133,8 @@ public class GuiController implements ActionListener {
                     this.errorMessage("error while checking destination address: \n" + ex.getMessage());
                 } catch (Exception ex)
                 {
-                    this.errorMessage("error while checking destination address: \n" + "Please try a different address \n \n" + "type of error: \n" + ex.toString());
+                    this.errorMessage("error while checking destination address: \n" +
+                            "Please try a different address \n \n" + "type of error: \n" + ex.toString());
                 }
             }
         }
@@ -139,9 +168,9 @@ public class GuiController implements ActionListener {
     }
 
     /**
-     * This method updates the CheckLabels to display the specified address
-     * @param startAddress
-     * @param destAddress
+     * This method updates the CheckLabels to display the specified address.
+     * @param startAddress The input of the start address.
+     * @param destAddress The input of the destination address.
      */
     public void updateComboBox(List<String> startAddress, List<String> destAddress)
     {
@@ -158,11 +187,11 @@ public class GuiController implements ActionListener {
     }
 
     /**
-     * This method updates the outputTextArea to display the estimated time, the estimated travel-distance
-     * and the route instructions.
-     * @param time
-     * @param distance
-     * @param instructions
+     * This method updates the outputTextArea to display the estimated time,
+     * the estimated travel-distance and the route instructions.
+     * @param time Duration needed for the route
+     * @param distance Total distance of the route
+     * @param instructions Routing instructions for the trip
      */
     public void updateOutput(String time, String distance, List<String> instructions)
     {
@@ -177,8 +206,8 @@ public class GuiController implements ActionListener {
     }
 
     /**
-     * This method displays error messages in the outputTextArea
-     * @param message
+     * This method displays error messages in the outputTextArea.
+     * @param message Error message
      */
     public void errorMessage(String message)
     {
