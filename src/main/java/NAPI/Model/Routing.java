@@ -12,9 +12,9 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * This class interacts with the RoutingApi from the GraphhopperApi
+ * This class interacts with the RoutingApi from the GraphhopperApi.
  *
- * @author Stefan, Fadi, Thomas, Paula
+ * @author Stephan, Fadi, Thomas, Paula
  */
 public class Routing {
 
@@ -24,6 +24,13 @@ public class Routing {
     private String distance;
     private long time;
 
+    /**
+     * This method provides the path of the route and the estimated time and
+     * distance for the trip.
+     *
+     * @param points Expects a list of two strings with coordinate information
+     * @param vehicle Expects a string defining the used vehicle
+     */
     public Routing(List<String> points, String vehicle)
     {
         this.routingApi = new RoutingApi();
@@ -32,6 +39,12 @@ public class Routing {
         calcDist();
     }
 
+    /**
+     * This method calculates the path of the route.
+     *
+     * @param points Expects a list of two strings with coordinate information
+     * @param vehicle Expects a string defining the used vehicle
+     */
     private void calcPath(List<String> points, String vehicle) {
         RouteResponse response;
         try {
