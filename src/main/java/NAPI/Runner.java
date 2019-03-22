@@ -13,11 +13,12 @@ import NAPI.View.GUIView;
 public class Runner {
     public static void main(String[] args)
     {
-        if(args[0].equals("gui")) {
-            GUIView gv = new GUIView();
-        }
-        else if(args[0].equals("cli")) {
-            CliView cv = new CliView();
+        if(args.length >= 1) {
+            if (args[0].equals("gui")) {
+                GUIView gv = new GUIView();
+            } else if (args[0].equals("cli")) {
+                CliView cv = new CliView();
+            }
         }
         else {
             System.out.println("You can choose between a gui and a cli");
