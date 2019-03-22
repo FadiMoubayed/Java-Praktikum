@@ -14,7 +14,9 @@ import java.util.List;
  * This class is fetching information about calculated
  * duration, distance and routing instruction of the
  * two given addresses and a specified vehicle using
- * the Graphical User Interface.
+ * the Graphical User Interface
+ *
+ * @author Stephan, Fadi, Thomas, Paula
  */
 public class GuiController implements ActionListener {
 
