@@ -29,7 +29,7 @@ public class GUIView{
 
     /**
      * The View class for the GUI.
-     * @author Stefan, Fadi, Thomas, Paula
+     * @author Stephan, Fadi, Thomas, Paula
      */
 public GUIView()
 {
