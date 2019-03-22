@@ -168,6 +168,11 @@ public GUIView()
         gbc.gridy = 4;
         ctrlPane.add(outputPane, gbc);
 
+        startComboBox.setMaximumSize(new Dimension(150, 20));
+        startCheckButton.setMinimumSize(new Dimension(100,25));
+        startTextField.setMinimumSize(new Dimension(200, 25));
+        startLabel.setMinimumSize(new Dimension(150,25));
+
         ImageIcon img = new ImageIcon("C:\\Users\\paula\\Java-Praktikum\\earth.png");
         JFrame frame = new JFrame("NAPI");
         frame.setIconImage(img.getImage());
