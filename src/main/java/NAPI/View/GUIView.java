@@ -42,30 +42,30 @@ public GUIView()
     public void draw() {
 
         // Create views swing UI components
-        startLabel = new JLabel("start address: ");
+        startLabel = new JLabel("Start address: ");
         startTextField = new JTextField(26);
-        startCheckButton = new JButton("check");
+        startCheckButton = new JButton("Check");
         startCheckLabel = new JLabel();
         startComboBox = new JComboBox();
 
-        destLabel = new JLabel("dest address: ");
+        destLabel = new JLabel("Destination address: ");
         destTextField = new JTextField();
-        destCheckButton = new JButton("check");
+        destCheckButton = new JButton("Check");
         destCheckLabel = new JLabel();
         destComboBox = new JComboBox();
 
 
-        vehicleLabel = new JLabel("vehicle type: ");
-        carRadio = new JRadioButton("car", true);
-        footRadio = new JRadioButton("foot");
-        bikeRadio = new JRadioButton("bike");
+        vehicleLabel = new JLabel("Vehicle type: ");
+        carRadio = new JRadioButton("Car", true);
+        footRadio = new JRadioButton("Foot");
+        bikeRadio = new JRadioButton("Bike");
         vehicleRadio = new ButtonGroup();
         vehicleRadio.add(carRadio);
         vehicleRadio.add(bikeRadio);
         vehicleRadio.add(footRadio);
 
-        calculateButton = new JButton("calculate");
-        outputLabel = new JLabel("output:");
+        calculateButton = new JButton("Calculate");
+        outputLabel = new JLabel("Output: ");
         outputTextArea = new JTextArea();
         JScrollPane outputPane = new JScrollPane(outputTextArea);
 

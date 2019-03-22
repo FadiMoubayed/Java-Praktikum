@@ -1,8 +1,10 @@
 package NAPI.View;
 
 import NAPI.Controller.CliController;
+import com.graphhopper.directions.api.client.model.VehicleType;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,41 +37,51 @@ public class CliView{
     }
 
     public void draw() {
-        List<String> adresses = new ArrayList<String>();
-        Scanner sn = new Scanner(System.in);
-        String startingAddress = "";
-        while (startingAddress.isEmpty()) {
+        List<String> adresses = new ArrayList<>();
+        Scanner sc = new Scanner(System.in);
+        String startingAddress;
+        do {
             System.out.print("Please enter your starting address: ");
-            startingAddress = sn.nextLine();
-        }
+            startingAddress = sc.nextLine();
+        } while (startingAddress.isEmpty());
         adresses.add(startingAddress);
 
 
-        String destinationAddress = "";
-        while (destinationAddress.isEmpty()) {
+        String destinationAddress;
+        do {
             System.out.print("Please enter your destination address: ");
-            destinationAddress = sn.nextLine();
-        }
+            destinationAddress = sc.nextLine();
+        } while(destinationAddress.isEmpty());
         adresses.add(destinationAddress);
 
-        String vehicle = "";
+        String vehicle;
         // check whether vehicle input matches with the supported vehicles
-        while (!vehicle.equals("car") && !vehicle.equals("truck") && !vehicle.equals("scooter") && !vehicle.equals("foot") && !vehicle.equals("hike") && !vehicle.equals("bike")) {
+        do {
             System.out.println("Please enter the type of your vehicle: ");
             System.out.println("car, truck, scooter, foot, hike, bike ");
-            vehicle = sn.nextLine();
-        }
+            vehicle = sc.nextLine();
+        } while (!isInEnum(vehicle, VehicleType.class));
 
 
         CliController cc = new CliController(adresses, vehicle);
-        System.out.println("\n" + "Estimated time is: " + cc.calcTime() + " minutes");
-        System.out.println("The total distance is: " + cc.calcDistance() + " kilometers" + "\n");
+        System.out.println(System.lineSeparator() + "Estimated time is: " + cc.getTime());
+        System.out.println("The total distance is: " + cc.getDistance() + " kilometers" + System.lineSeparator());
 
-        List<String> instructions = cc.calcInstructions();
+        List<String> instructions = cc.getInstructions(); //calcInstructions returns a LinkedList
 
-        for(int i = 0; i<instructions.size();i++) {
-            System.out.println(instructions.get(i));
-            // The class of instructions.get(i) is class java.lang.String
+        Iterator it = instructions.iterator();
+        while(it.hasNext()) {
+            System.out.println(it.next());
         }
+    }
+    public enum VehicleType
+    {
+        car, truck, scooter, foot, hike, bike
+    }
+    public <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
+        for (E e : enumClass.getEnumConstants()) {
+            if(e.name().equals(value)) { return true; }
+        }
+        return false;
     }
 }
