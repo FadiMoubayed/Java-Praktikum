@@ -9,19 +9,21 @@ import java.util.List;
 /**
  * This class is fetching information about calculated
  * duration, distance and routing instruction of the
- * two given addresses and a specified vehicle.
+ * two given addresses and a specified vehicle using
+ * the Command Line Interface.
  *
- * @author Stefan, Fadi, Thomas, Paula
+ * @author Stephan, Fadi, Thomas, Paula
  */
 public class CliController
 {
     private Routing routing;
 
     /**
-     * This method expects two adresses and information
+     * This method expects two addresses and information
      * about a vehicle used.
-     * For more information about
-     * this look at the CliView class documentation.
+     *
+     * For more information about this see the CliView
+     * class documentation.
      *
      * @param addresses Origin and destination address.
      * @param vehicle Used for the route.
