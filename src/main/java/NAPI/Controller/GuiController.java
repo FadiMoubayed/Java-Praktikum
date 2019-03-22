@@ -12,7 +12,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-
+/**
+ * This class is fetching information about calculated
+ * duration, distance and routing instruction of the
+ * two given addresses and a specified vehicle.
+ */
 public class GuiController implements ActionListener {
 
     private JTextField startTextField;
@@ -33,14 +37,30 @@ public class GuiController implements ActionListener {
 
     /**
      * This is the constructor.
-     * It imports some components from the GuiView, creates a new instance of the model
-     * and sets the default vehicle to "car"
-     * @param startTextField
-     * @param destTextField
-     * @param startCheckButton
-     * @param destCheckButton
-     * @param calculateButton
-     * @param outputTextArea
+     * It imports some components from the GuiView,
+     * creates a new instance of the model and sets
+     * the default vehicle to "car"
+     *
+     * @param startTextField The text field for the
+     *                       input of the start/origin
+     *                       address
+     * @param destTextField The text field for the
+     *                      input of the destination
+     *                      address
+     * @param startCheckButton Hitting this button will
+     *                         check whether the input
+     *                         address exists. A suggested
+     *                         address is displayed on the
+     *                         screen.
+     * @param destCheckButton Hitting this button will check
+     *                        whether the input address
+     *                        exists. A suggested address is
+     *                        displayed on the screen.
+     * @param calculateButton Hitting this button will process
+     *                        the route calculation between the
+     *                        two given addresses.
+     * @param outputTextArea In this area the routing information
+     *                       will be displayed.
      * @param startComboBox
      * @param destComboBox
      */
