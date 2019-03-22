@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * This class interacts with the RoutingApi from the GraphhopperApi
+ * This class interacts with the RoutingApi from the GraphhopperApi.
  */
 public class Routing {
 
@@ -62,7 +62,10 @@ public class Routing {
     }
 
     /**
-     * this method gives you a list of instructions on how to travel between given coordinates with a vehicle of your choice
+     * This method gives you a list of instructions
+     * on how to travel between given coordinates
+     * with a vehicle of your choice.
+     *
      * @return list of instructions (as Strings)
      */
     public List<String> getRoute( ) {
