@@ -8,8 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * this class serves as the facade to all classes that interact with GraphhopperApis
- * @autor StefanThomasFadiPaula
+ * This class interacts with the input controller classes and provides
+ * the Graphhopper output
+ *
+ * @autor StephanThomasFadiPaula
  */
 public class Model {
 
