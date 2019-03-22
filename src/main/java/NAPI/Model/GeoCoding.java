@@ -7,6 +7,7 @@ import com.graphhopper.directions.api.client.model.GeocodingResponse;
 
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,14 +29,12 @@ import java.util.List;
  */
 
 public class GeoCoding {
-
-    private GeocodingApi geocode;
-    private GeocodingResponse result;
+    private GeocodingApi geocodeAPI;
+    private GeocodingResponse response;
     private String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
     private String language;
-    private int limit;
-
-    List<GeocodingLocation> gcl;
+    private int numberOfLocations;
+    private List<GeocodingLocation> geocodingLocationList;
 
     /**
      * Konstruktor
@@ -44,12 +43,13 @@ public class GeoCoding {
      * @param limit limits number of guessed addresses to choose from
      */
 
-    protected GeoCoding(String address, int limit) {
-        geocode = new GeocodingApi();
-        language = "en";
-        this.limit = limit;
-        this.gcl = convertAddressToGCL(address);
+    public GeoCoding(String address, int numberOfLocations) {
+        geocodeAPI                 = new GeocodingApi();
+        language                   = "en";
+        this.numberOfLocations     = numberOfLocations;
+        this.geocodingLocationList = convertAddressToGCL(address);
     }
+
      /**
       * This methods converts a list of addresses into coordinates
       * usind the GeocodingAPI.
@@ -58,20 +58,20 @@ public class GeoCoding {
       */
     private List<GeocodingLocation> convertAddressToGCL(String address)
     {
-        Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
-        String provider = "default"; // String | Can be either, default, nominatim, opencagedata
+        GeocodingResponse result;
 
-        GeocodingResponse result = new GeocodingResponse();
         try {
-            result = geocode.geocodeGet(key, address, language, limit, reverse, "", provider);
-
+            result = geocodeAPI.geocodeGet(key, address, language, numberOfLocations,
+                                   false, "", "default");
         } catch (ApiException e) {
             if(e.getCause() instanceof UnknownHostException)
                 throw new IllegalArgumentException("Could not connect to network.");
             else
                 throw new IllegalArgumentException(e.getResponseBody());
         }
-        limit = result.getHits().size();
+
+        this.numberOfLocations = result.getHits().size();
+
         return result.getHits();
     }
 
@@ -79,23 +79,21 @@ public class GeoCoding {
      * This methods converts a number of adresses into coordinates
      * @return List of coordinates (as Strings)
      */
-    public List<String> getCoordinates()
+    List<String> getCoordinates()
     {
-        Boolean reverse = false; // Boolean | Set to true to do a reverse Geocoding request, see point parameter
-        String provider = "default"; // String | Can be either, default, nominatim, opencagedata
-
-        List<String> points = new ArrayList<>();
-        for(int i = 0; i<limit; i++)
+        List<String> points = new ArrayList<>(numberOfLocations);
+        for(int i = 0; i < numberOfLocations; i++)
         {
             points.add(getCoordinateAt(i));
         }
+
         return points;
     }
 
     public List<String> getAddresses()
     {
-        List<String> addresses = new ArrayList<>();
-        for(int i = 0; i<limit; i++)
+        List<String> addresses = new ArrayList<>(numberOfLocations);
+        for(int i = 0; i< numberOfLocations; i++)
         {
             addresses.add(getAddressAt(i));
         }
@@ -105,17 +103,51 @@ public class GeoCoding {
 
     public String getCoordinateAt(int location)
     {
-        double lat = gcl.get(location).getPoint().getLat();
-        double lng = gcl.get(location).getPoint().getLng();
+        double lat = geocodingLocationList.get(location).getPoint().getLat();
+        double lng = geocodingLocationList.get(location).getPoint().getLng();
 
-        return (Double.toString(lat) + "," + Double.toString(lng));
+        return lat + "," + lng;
     }
 
     public String getAddressAt(int location)
     {
-        String understoodAddress = "";
-        GeocodingLocation output = gcl.get(location);
-        if (output.getCountry() != null) {
+        //String understoodAddress = "";
+        GeocodingLocation output = geocodingLocationList.get(location);
+        System.out.println(output);
+        List<String> addressList = Arrays.asList(output.getCountry(),
+                                                 output.getCity(),
+                                                 output.getPostcode(),
+                                                 output.getStreet(),
+                                                 output.getHousenumber());
+
+        StringBuilder strBuilder = new StringBuilder();
+        boolean allNeqNull = true;
+        for(int i = 0; i < addressList.size(); i++) {
+            String addressItem = addressList.get(i);
+
+            if (addressItem != null) {
+                strBuilder.append(addressItem);
+                if(!(addressItem.equals(output.getStreet()) ||
+                   addressItem.equals(output.getCity()))){
+                    strBuilder.append(", ");
+                }
+                else
+                {
+                    strBuilder.append(" ");
+                }
+            } else {
+                allNeqNull = false;
+                strBuilder.append(output.getName());
+                break;
+            }
+        }
+
+        if(allNeqNull) {
+            int indexOfLastComma = strBuilder.lastIndexOf(",");
+            strBuilder.delete(indexOfLastComma, indexOfLastComma+2);
+        }
+
+        /*if (output.getCountry() != null) {
             understoodAddress = output.getCountry();
             if (output.getCity() != null) {
                 understoodAddress = understoodAddress + ", " + output.getCountry();
@@ -144,9 +176,8 @@ public class GeoCoding {
             }
         } else {
             understoodAddress = understoodAddress + " " + output.getName();
-        }
-        return understoodAddress;
+        }*/
+
+        return strBuilder.toString();
     }
-
-
 }
