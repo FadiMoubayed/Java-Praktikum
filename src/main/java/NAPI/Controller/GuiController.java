@@ -37,6 +37,7 @@ public class GuiController implements ActionListener {
 
     /**
      * This is the constructor.
+     *
      * It imports some components from the GuiView,
      * creates a new instance of the model and sets
      * the default vehicle to "car"
@@ -61,8 +62,12 @@ public class GuiController implements ActionListener {
      *                        two given addresses.
      * @param outputTextArea In this area the routing information
      *                       will be displayed.
-     * @param startComboBox
-     * @param destComboBox
+     * @param startComboBox Three suggested addresses will be
+     *                      displayed here in a drop down menu.
+     *                      The user may select one out of them.
+     * @param destComboBox Three suggested addresses will be
+     *                     displayed here in a drop down menu.
+     *                     The user may select one out of them.
      */
     public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, JTextArea outputTextArea, JComboBox startComboBox, JComboBox destComboBox, JLabel startCheckLabel, JLabel destCheckLabel) {
         super();
