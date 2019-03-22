@@ -22,7 +22,7 @@ public class Runner {
             }
         }
         else {
-            System.out.println("You can choose between a GUI and a CLI.");
+            System.out.println("You can choose between a GUI and a CLI by adding [cli] or [gui] as an argument. Usage: NAPI [argument], i.e. NAPI gui for starting NAPI with the Graphical User Interface");
         }
     }
 }
