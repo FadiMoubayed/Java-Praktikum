@@ -1,9 +1,7 @@
 package NAPI.Controller;
 
 import NAPI.Model.GeoCoding;
-import NAPI.Model.Model;
 import NAPI.Model.Routing;
-import NAPI.View.GUIView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -25,13 +23,10 @@ public class GuiController implements ActionListener {
     private JButton destCheckButton;
     private JComboBox startComboBox;
     private JComboBox destComboBox;
-    private JLabel startCheckLabel;
-    private JLabel destCheckLabel;
     private JButton calculateButton;
     private JTextArea outputTextArea;
     private GeoCoding startGC;
     private GeoCoding destGC;
-    private Model model;
 
     private String vehicle;
 
@@ -69,7 +64,9 @@ public class GuiController implements ActionListener {
      *                     displayed here in a drop down menu.
      *                     The user may select one out of them.
      */
-    public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton, JButton destCheckButton,JButton calculateButton, JTextArea outputTextArea, JComboBox startComboBox, JComboBox destComboBox, JLabel startCheckLabel, JLabel destCheckLabel) {
+    public GuiController(JTextField startTextField, JTextField destTextField, JButton startCheckButton,
+                         JButton destCheckButton, JButton calculateButton, JTextArea outputTextArea,
+                         JComboBox startComboBox, JComboBox destComboBox) {
         super();
         this.startTextField = startTextField;
         this.destTextField = destTextField;
@@ -79,9 +76,6 @@ public class GuiController implements ActionListener {
         this.outputTextArea = outputTextArea;
         this.startComboBox = startComboBox;
         this.destComboBox = destComboBox;
-        this.startCheckLabel = startCheckLabel;
-        this.destCheckLabel = destCheckLabel;
-        this.model = new Model();
 
         vehicle = "car";
     }
@@ -103,7 +97,7 @@ public class GuiController implements ActionListener {
                 String startAddress = startTextField.getText() + "";
                 List<String> destAddress = new ArrayList<String>();
                 try {
-                    startGC = model.calculateGC(startAddress, 3);
+                    startGC = new GeoCoding(startAddress, 3);
                     List<String> output = startGC.getAddresses();
                     this.updateComboBox(output, destAddress);
                 } catch (IllegalArgumentException ex) {
@@ -126,7 +120,7 @@ public class GuiController implements ActionListener {
                 List<String> startAddress = new ArrayList<String>();
                 String destAddress = destTextField.getText() + "";
                 try {
-                    destGC = model.calculateGC(destAddress, 3);
+                    destGC = new GeoCoding(destAddress, 3);
                     List<String> output = destGC.getAddresses();
                     this.updateComboBox(startAddress, output);
                 } catch (IllegalArgumentException ex) {
@@ -140,13 +134,13 @@ public class GuiController implements ActionListener {
         }
         else if(e.getSource() == this.calculateButton)
         {
-            if(startTextField.getText().isEmpty())
+            if(startComboBox.getItemCount()==0)
             {
-                this.errorMessage("error while calculating: \n" + "please put in a starting address");
+                this.errorMessage("error while calculating: \n" + "please put in a starting address and hit check");
             }
-            else if(destTextField.getText().isEmpty())
+            else if(destComboBox.getItemCount()==0)
             {
-                this.errorMessage("error while calculating: \n" + "please put in a destination address");
+                this.errorMessage("error while calculating: \n" + "please put in a destination address and hit check");
             }
             else {
                 List<String> coordinates = new ArrayList<String>();
@@ -154,7 +148,7 @@ public class GuiController implements ActionListener {
                 coordinates.add(destGC.getCoordinateAt(destComboBox.getSelectedIndex()));
                 Routing rt;
                 try {
-                    rt = model.calculateRoute(coordinates, vehicle);
+                    rt = new Routing(coordinates, vehicle);
                     this.updateOutput(rt.getTime(), rt.getDistance(), rt.getRoute());
                 } catch (IllegalArgumentException ex) {
                     this.errorMessage("error while calculating: \n" + ex.getMessage());

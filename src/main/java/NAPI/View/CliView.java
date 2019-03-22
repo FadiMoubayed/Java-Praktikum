@@ -1,7 +1,6 @@
 package NAPI.View;
 
 import NAPI.Controller.CliController;
-import com.graphhopper.directions.api.client.model.VehicleType;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -27,6 +26,7 @@ import java.util.Scanner;
  * The output provides the total estimated time, the
  * total distance in kilometers and the routing
  * instructions.
+ * @author Stefan, Fadi, Thomas, Paula
  */
 
 public class CliView{
@@ -67,20 +67,26 @@ public class CliView{
         System.out.println(System.lineSeparator() + "Estimated time is: " + cc.getTime());
         System.out.println("The total distance is: " + cc.getDistance() + " kilometers" + System.lineSeparator());
 
-        List<String> instructions = cc.getInstructions(); //calcInstructions returns a LinkedList
+        //calcInstructions returns a LinkedList
+        List<String> instructions = cc.getInstructions();
 
         Iterator it = instructions.iterator();
         while(it.hasNext()) {
             System.out.println(it.next());
         }
     }
+
     public enum VehicleType
     {
         car, truck, scooter, foot, hike, bike
     }
-    public <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass) {
+
+    public <E extends Enum<E>> boolean isInEnum(String value, Class<E> enumClass)
+    {
         for (E e : enumClass.getEnumConstants()) {
-            if(e.name().equals(value)) { return true; }
+            if(e.name().equals(value)) {
+                return true;
+            }
         }
         return false;
     }

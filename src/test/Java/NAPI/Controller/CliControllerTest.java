@@ -20,10 +20,9 @@ class CliControllerTest {
         addresses.add("Hensenstraße 189 Münster");
         CliController cc = new CliController(addresses, "foot");
 
-        // TODO fix test (methods and method names have been changed)
-//        assertThat(cc.getDistance()distance(), is(equalTo("0,22")));
-//        assertThat(cc.getTime()time(), is(equalTo("2")));
-//        assertThat(cc.getInstructions()instructions().get(0), is(equalTo("Continue onto Hensenstraße for 10 meters")));
+        assertThat(cc.getDistance(), is(equalTo("0,22")));
+        assertThat(cc.getTime(), is(equalTo("2")));
+        assertThat(cc.getInstructions().get(0), is(equalTo("Continue onto Hensenstraße for 10 meters")));
     }
 
 }

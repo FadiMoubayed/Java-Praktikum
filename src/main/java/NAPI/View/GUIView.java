@@ -5,15 +5,12 @@ import NAPI.Controller.GuiController;
 import javax.swing.*;
 import java.awt.*;
 
-import java.util.List;
 
 public class GUIView{
     private JTextField startTextField;
     private JTextField destTextField;
     private JButton startCheckButton;
     private JButton destCheckButton;
-    private JPanel GUISwing;
-    private JLabel ueberschrift;
     private JLabel startLabel;
     private JLabel destLabel;
     private JLabel startCheckLabel;
@@ -28,9 +25,12 @@ public class GUIView{
     private JRadioButton bikeRadio;
     private ButtonGroup vehicleRadio;
     private JLabel outputLabel;
-    private JFrame frame;
 
 
+    /**
+     * The View class for the GUI.
+     * @author Stefan, Fadi, Thomas, Paula
+     */
 public GUIView()
 {
     this.draw();
@@ -70,7 +70,8 @@ public GUIView()
         JScrollPane outputPane = new JScrollPane(outputTextArea);
 
         // Create guiController
-        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton, calculateButton, outputTextArea, startComboBox, destComboBox, startCheckLabel, destCheckLabel);
+        GuiController guiController = new GuiController(startTextField, destTextField, startCheckButton, destCheckButton,
+                                                        calculateButton, outputTextArea, startComboBox, destComboBox);
         startCheckButton.addActionListener(guiController);
         destCheckButton.addActionListener(guiController);
         calculateButton.addActionListener(guiController);
