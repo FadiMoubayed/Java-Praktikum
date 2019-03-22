@@ -13,7 +13,8 @@ import java.util.List;
 /**
  * This class is fetching information about calculated
  * duration, distance and routing instruction of the
- * two given addresses and a specified vehicle.
+ * two given addresses and a specified vehicle using
+ * the Graphical User Interface.
  */
 public class GuiController implements ActionListener {
 
