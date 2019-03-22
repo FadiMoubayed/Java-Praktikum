@@ -16,12 +16,12 @@ import java.util.List;
  * @author Stefan, Fadi, Thomas, Paula
  */
 public class GeoCoding {
+    private static final String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
     private GeocodingApi geocodeAPI;
     private GeocodingResponse response;
-    private String key = "d7bb71f8-0024-4338-b602-f052a9ad1c54";
     private String language;
     private int numberOfLocations;
-    private List<GeocodingLocation> geocodingLocationList;
+    private List<GeocodingLocation> gcLocations;
 
     //TODO JavaDoc
     /**
@@ -31,7 +31,7 @@ public class GeoCoding {
         geocodeAPI                 = new GeocodingApi();
         language                   = "en";
         this.numberOfLocations     = numberOfLocations;
-        this.geocodingLocationList = convertAddressToGCL(address);
+        this.gcLocations = convertAddressToGCL(address);
     }
 
     private List<GeocodingLocation> convertAddressToGCL(String address)
@@ -75,18 +75,17 @@ public class GeoCoding {
         return addresses;
     }
 
-    public String getCoordinateAt(int location)
+    public String getCoordinateAt(int index)
     {
-        double lat = geocodingLocationList.get(location).getPoint().getLat();
-        double lng = geocodingLocationList.get(location).getPoint().getLng();
+        double lat = gcLocations.get(index).getPoint().getLat();
+        double lng = gcLocations.get(index).getPoint().getLng();
 
         return lat + "," + lng;
     }
 
-    public String getAddressAt(int location)
+    public String getAddressAt(int index)
     {
-        GeocodingLocation output = geocodingLocationList.get(location);
-        System.out.println(output);
+        GeocodingLocation output = gcLocations.get(index);
         List<String> addressList = Arrays.asList(output.getCountry(),
                                                  output.getCity(),
                                                  output.getPostcode(),
